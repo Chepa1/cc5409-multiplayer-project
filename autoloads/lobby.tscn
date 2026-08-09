@@ -5,6 +5,8 @@
 
 [node name="Lobby" type="Node" unique_id=1348032977]
 script = ExtResource("1_485el")
+return_to_lobby_on_player_disconnect = null
+debug = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1401741461]
 layer = 64

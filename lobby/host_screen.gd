@@ -16,7 +16,7 @@ func _ready() -> void:
 	host_button.pressed.connect(_host)
 	error_timer.timeout.connect(func() -> void: error_label.hide())
 	error_label.hide()
-	back_button.pressed.connect(func() -> void: Lobby.go_to_menu())
+	back_button.pressed.connect(func() -> void: Lobby.instance.go_to_menu())
 
 
 func _host() -> void:
@@ -28,7 +28,7 @@ func _host() -> void:
 		error_timer.start()
 		return
 	multiplayer.multiplayer_peer = peer
-	Game.add_player(Statics.PlayerData.new(multiplayer.get_unique_id(), player_name.text, 0))
+	Game.instance.add_player(Statics.PlayerData.new(multiplayer.get_unique_id(), player_name.text, 0))
 	Debug.add_to_window_title("Server")
-	Game.update_player_id()
+	Game.instance.update_player_id()
 	get_tree().change_scene_to_file("res://lobby/waiting_screen.tscn")

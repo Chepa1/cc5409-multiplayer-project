@@ -10,8 +10,8 @@ var player: Statics.PlayerData
 
 
 func _ready() -> void:
-	role_label.visible = Game.use_roles
-	Game.player_updated.connect(_handle_player_updated)
+	role_label.visible = Game.instance.use_roles
+	Game.instance.player_updated.connect(_handle_player_updated)
 	update()
 
 

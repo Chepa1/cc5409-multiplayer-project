@@ -1,8 +1,11 @@
+class_name Game
 extends Node
 
 signal players_updated
 signal player_updated(id: int)
 signal vote_updated(id: int)
+
+static var instance: Game
 
 @export var multiplayer_test: bool = false
 @export var use_roles: bool = true
@@ -23,12 +26,15 @@ var change_window_scale : bool = true :
 		elif last_value != value:
 			_update_window_scale()
 
+
 var _is_window_small: bool = false
 var _initial_window_scale_mode: Window.ContentScaleMode
 var _initial_window_scale_aspect: Window.ContentScaleAspect
 
 @onready var player_id: Label = %PlayerId
 
+func _enter_tree() -> void:
+	instance = self
 
 func _ready() -> void:
 	_initial_window_scale_mode = get_window().content_scale_mode
@@ -89,7 +95,7 @@ func get_current_player() -> Statics.PlayerData:
 
 @rpc("reliable")
 func update_indices(player_indices: Dictionary) -> void:
-	for player: Statics.PlayerData in Game.players:
+	for player: Statics.PlayerData in Game.instance.players:
 		if player.id in player_indices:
 			player.index = player_indices[player.id]
 			if player.id == multiplayer.get_unique_id():

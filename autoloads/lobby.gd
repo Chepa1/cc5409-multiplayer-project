@@ -1,5 +1,7 @@
+class_name  Lobby
 extends Node
 
+static var instance: Lobby
 
 @export var return_to_lobby_on_player_disconnect : bool = true
 @export var debug : bool = false
@@ -9,6 +11,10 @@ var _skip_server_disconnect_action: bool = false
 @onready var player_disconnected: MarginContainer = %PlayerDisconnected
 @onready var server_disconnected: MarginContainer = %ServerDisconnected
 @onready var message_container: Panel = %MessageContainer
+
+
+func _enter_tree() -> void:
+	instance = self
 
 
 func _ready() -> void:
@@ -26,7 +32,7 @@ func _ready() -> void:
 func _handle_connected_to_server() -> void:
 	if debug:
 		Debug.log("Connected to server")
-	Game.update_player_id()
+	Game.instance.update_player_id()
 
 
 func _handle_connection_failed() -> void:
@@ -38,13 +44,13 @@ func _handle_peer_connected(id: int) -> void:
 	if debug:
 		Debug.log("Peer connected %d" % id)
 	
-	if not Game.get_current_player():
+	if not Game.instance.get_current_player():
 		# exception for lobby test
 		return
 	
 	# If it's server or I already have an index assigned
-	if id == 1 or Game.get_current_player().index != -1:
-		send_data.rpc_id(id, Game.get_current_player().to_dict())
+	if id == 1 or Game.instance.get_current_player().index != -1:
+		send_data.rpc_id(id, Game.instance.get_current_player().to_dict())
 
 
 func _handle_peer_disconnected(id: int) -> void:
@@ -59,7 +65,7 @@ func _handle_peer_disconnected(id: int) -> void:
 		get_tree().current_scene is not LobbyWaitingScreen:
 		go_to_lobby()
 	
-	Game.remove_player(id)
+	Game.instance.remove_player(id)
 
 
 func _handle_server_disconnected() -> void:
@@ -106,11 +112,11 @@ func go_to_join() -> void:
 func send_data(data: Dictionary) -> void:
 	if multiplayer.is_server():
 		# A new player sent its data to the server, assing an index
-		data.index = Game.players.size()
+		data.index = Game.instance.players.size()
 		send_data.rpc(data)
 	if debug:
 		Debug.log("Player data from %s received" % data.name)
-	Game.add_player(Statics.PlayerData.from_dict(data))
+	Game.instance.add_player(Statics.PlayerData.from_dict(data))
 	if data.id == multiplayer.get_unique_id():
 		Debug.index = data.index
 		Debug.add_to_window_title("Client %d" % data.index)
@@ -119,6 +125,6 @@ func send_data(data: Dictionary) -> void:
 func reset() -> void:
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
-	Game.players = []
+	Game.instance.players = []
 	Debug.reset_window_title()
-	Game.update_player_id()
+	Game.instance.update_player_id()

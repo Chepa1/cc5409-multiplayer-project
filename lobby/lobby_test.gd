@@ -6,18 +6,18 @@ var player_index: int = 1
 @onready var start_game_timer: Timer = $StartGameTimer
 
 func _ready() -> void:
-	for i: int in Game.test_players.size():
-		var test_player: PlayerDataResource = Game.test_players[i]
+	for i: int in Game.instance.test_players.size():
+		var test_player: PlayerDataResource = Game.instance.test_players[i]
 		var player: Statics.PlayerData = Statics.PlayerData.new(
 			0,
 			test_player.name,
 			i,
 			test_player.role
 		)
-		Game.players.push_back(player)
+		Game.instance.players.push_back(player)
 	
-	if Game.players.size() > 0:
-		Game.players[0].id = 1
+	if Game.instance.players.size() > 0:
+		Game.instance.players[0].id = 1
 	
 	if is_multiplayer_authority():
 		multiplayer.peer_connected.connect(_on_peer_connected)
@@ -26,7 +26,7 @@ func _ready() -> void:
 		_try_join()
 	
 	# disable in order to be able to reach main menu again
-	Game.multiplayer_test = false
+	Game.instance.multiplayer_test = false
 
 
 func _try_host() -> bool:
@@ -35,7 +35,7 @@ func _try_host() -> bool:
 	if err == OK:
 		multiplayer.multiplayer_peer = peer
 		Debug.add_to_window_title("Server")
-		Game.update_player_id()
+		Game.instance.update_player_id()
 		_update_window_placement(0)
 		start_game_timer.timeout.connect(_on_start_game_timeout)
 	return err == OK
@@ -51,36 +51,36 @@ func _try_join() -> bool:
 
 func _on_peer_connected(id: int) -> void:
 	if multiplayer.is_server():
-		Game.players[player_index].id = id
-		for i: int in Game.players.size():
-			_send_player_data_id.rpc(i, Game.players[i].id)
+		Game.instance.players[player_index].id = id
+		for i: int in Game.instance.players.size():
+			_send_player_data_id.rpc(i, Game.instance.players[i].id)
 		player_index += 1
 		start_game_timer.start()
 
 
 @rpc("reliable")
 func _send_player_data_id(index: int, id: int) -> void:
-	if multiplayer.get_unique_id() == id and not Game.players[index].id:
+	if multiplayer.get_unique_id() == id and not Game.instance.players[index].id:
 		Debug.add_to_window_title("Client %d" % index)
 		Debug.index = index
 		_update_window_placement(index)
-	Game.players[index].id = id
+	Game.instance.players[index].id = id
 
 
 func _on_start_game_timeout() -> void:
-	_start_game.rpc()
+	_start_Game.instance.rpc()
 
 
 @rpc("reliable", "call_local")
 func _start_game() -> void:
-	get_tree().change_scene_to_packed(Game.main_scene)
+	get_tree().change_scene_to_packed(Game.instance.main_scene)
 
 
 func _update_window_placement(index: int) -> void:
-	if not Game.fill_screen:
+	if not Game.instance.fill_screen:
 		return
-	var columns: int = ceil(sqrt(Game.players.size()))
-	var rows: int = ceil(1.0 * Game.players.size() / columns)
+	var columns: int = ceil(sqrt(Game.instance.players.size()))
+	var rows: int = ceil(1.0 * Game.instance.players.size() / columns)
 	var x: int = index % columns
 	@warning_ignore("integer_division")
 	var y: int = index / columns
