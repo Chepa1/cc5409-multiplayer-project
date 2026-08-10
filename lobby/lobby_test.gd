@@ -68,7 +68,7 @@ func _send_player_data_id(index: int, id: int) -> void:
 
 
 func _on_start_game_timeout() -> void:
-	_start_Game.instance.rpc()
+	_start_game.rpc()
 
 
 @rpc("reliable", "call_local")
