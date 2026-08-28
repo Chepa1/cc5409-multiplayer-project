@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckhcsdweyhtyh"
-path.s3tc="res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.s3tc.ctex"
+uid="uid://cx2kl27j1rry2"
+path.s3tc="res://.godot/imported/gold-brushed-metal-texture-free-vector.jpg-94fa0206cfdc43e22bc791aeb334bd21.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/LPOP_TextureAtlas1.png"
-dest_files=["res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.s3tc.ctex"]
+source_file="res://gold-brushed-metal-texture-free-vector.jpg"
+dest_files=["res://.godot/imported/gold-brushed-metal-texture-free-vector.jpg-94fa0206cfdc43e22bc791aeb334bd21.s3tc.ctex"]
 
 [params]
 
