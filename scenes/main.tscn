@@ -50,12 +50,12 @@ transform = Transform3D(1, 0, 0, 0, 0.9145663, 0.40443614, 0, -0.40443614, 0.914
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=1181011140]
 
 [node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=1917306853]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.531163, 0.319726, 2.6259427)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.531163, 1.7920389, 2.6259427)
 
 [node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=843655688]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010491371, 0.52683127, 4.715571)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010491371, 1.3858914, 4.715571)
 
 [node name="Marker3D3" type="Marker3D" parent="SpawnPoints" unique_id=653153239]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9485705, 0.75372875, 2.464415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9485705, 1.7145108, 2.464415)
 
 [node name="Players" type="Node3D" parent="." unique_id=1630968461]
