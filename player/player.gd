@@ -7,6 +7,10 @@ extends CharacterBody3D
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
+@onready var sync_timer: Timer = $SyncTimer
+
+func _ready() -> void:
+	sync_timer.timeout.connect(on_sync_timeout)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test"):
@@ -16,6 +20,8 @@ func setup(player_data: Statics.PlayerData) -> void:
 	label_3d.text = player_data.name
 	set_multiplayer_authority(player_data.id)
 	camera_3d.current = is_multiplayer_authority()
+	if is_multiplayer_authority():
+		sync_timer.start()
 
 @rpc("authority", "call_local", "unreliable_ordered")
 func test() -> void:
@@ -45,3 +51,10 @@ func _physics_process(delta: float) -> void:
 #@rpc("authority", "call_remote", "unreliable_ordered")
 #func send_data(pos: Vector3) -> void:
 #	global_position = pos
+
+func on_sync_timeout() -> void:
+	_sync(global_position, velocity)
+	
+func _sync(pos: Vector3, vel: Vector3) -> void:
+	global_position = global_position.lerp(pos, 0.5)
+	velocity = velocity.lerp(vel, 0.5)

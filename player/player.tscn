@@ -27,3 +27,6 @@ billboard = 1
 text = "Sushipleto"
 
 [node name="InputSynchronizer" parent="." unique_id=460057798 instance=ExtResource("2_rkbax")]
+
+[node name="SyncTimer" type="Timer" parent="." unique_id=1758544219]
+wait_time = 0.1
