@@ -6,6 +6,7 @@ extends CharacterBody3D
 
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
+@onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test"):
@@ -21,16 +22,14 @@ func test() -> void:
 	Debug.log("meh")
 	
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority():
-		return
-	
 	if not is_on_floor(): #Agrega gravedad
 		velocity += get_gravity() * delta
 		
-	if is_on_floor() and Input.is_action_just_pressed("jump"): #salto
+	if is_on_floor() and input_synchronizer.jump: #salto
 		velocity.y = jump_speed
+		input_synchronizer.jump = false
 		
-	var move_input: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	var move_input: Vector2 = input_synchronizer.move_input
 	
 	var direction: Vector3 = transform.basis * Vector3(move_input.x, 0, move_input.y) #Aca hago que si me muevo a la derecha, sea la derecha del jugador, no del mundo.
 	var target: Vector2 = Vector2(direction.x, direction.z) * move_speed
@@ -41,8 +40,8 @@ func _physics_process(delta: float) -> void:
 	velocity.z = result.y
 	
 	move_and_slide()
-	send_data.rpc(global_position)
+	#send_data.rpc(global_position)
 	
-@rpc("authority", "call_remote", "unreliable_ordered")
-func send_data(pos: Vector3) -> void:
-	global_position = pos
+#@rpc("authority", "call_remote", "unreliable_ordered")
+#func send_data(pos: Vector3) -> void:
+#	global_position = pos

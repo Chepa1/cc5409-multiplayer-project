@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bidk4fd0fvleb"]
 
 [ext_resource type="Script" uid="uid://ybrmjvyhgltl" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="PackedScene" uid="uid://dtb1skmkrurio" path="res://input_synchronizer.tscn" id="2_rkbax"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u5bk5"]
 
@@ -24,3 +25,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7772436, 0)
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.306096, 0)
 billboard = 1
 text = "Sushipleto"
+
+[node name="InputSynchronizer" parent="." unique_id=460057798 instance=ExtResource("2_rkbax")]
