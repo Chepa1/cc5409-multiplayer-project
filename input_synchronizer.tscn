@@ -6,6 +6,9 @@
 properties/0/path = NodePath("InputSynchronizer:move_input")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("InputSynchronizer:head_rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" unique_id=460057798]
 replication_config = SubResource("SceneReplicationConfig_vtqle")

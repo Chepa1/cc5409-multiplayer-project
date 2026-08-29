@@ -7,6 +7,9 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
+size = Vector3(0.092041016, 0.1352539, 0.16931152)
+
 [node name="Player" type="CharacterBody3D" unique_id=1596243814]
 script = ExtResource("1_oul6g")
 
@@ -17,6 +20,11 @@ mesh = SubResource("CapsuleMesh_u5bk5")
 shape = SubResource("CapsuleShape3D_u8vuu")
 
 [node name="Head" type="Node3D" parent="." unique_id=323422308]
+
+[node name="Nose" type="MeshInstance3D" parent="Head" unique_id=2070919644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000117868185, 0.43237305, -0.5638226)
+mesh = SubResource("BoxMesh_u5bk5")
+skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1782533293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7772436, 0)

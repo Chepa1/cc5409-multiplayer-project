@@ -3,7 +3,9 @@ extends CharacterBody3D
 @export var move_speed: float = 5
 @export var jump_speed: float = 7
 @export var acceleration: float = 20
+@export var mouse_sensitivity: float = 0.005
 
+@onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
@@ -11,10 +13,34 @@ extends CharacterBody3D
 
 func _ready() -> void:
 	sync_timer.timeout.connect(on_sync_timeout)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test"):
 		test.rpc()
+		
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+		
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		head.rotate_y(-event.relative.x * mouse_sensitivity)
+		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
+		camera_3d.rotation.x = clamp(
+			camera_3d.rotation.x,
+			deg_to_rad(-80),
+			deg_to_rad(80)
+			)
+		
+		input_synchronizer.head_rotation = head.rotation.y
+		
+	if Input.is_action_just_pressed("escape"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		return
+		
+	if event is InputEventMouseButton and event.is_pressed():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		return
 
 func setup(player_data: Statics.PlayerData) -> void:
 	label_3d.text = player_data.name
@@ -37,7 +63,8 @@ func _physics_process(delta: float) -> void:
 		
 	var move_input: Vector2 = input_synchronizer.move_input
 	
-	var direction: Vector3 = transform.basis * Vector3(move_input.x, 0, move_input.y) #Aca hago que si me muevo a la derecha, sea la derecha del jugador, no del mundo.
+	var direction: Vector3 = Vector3(move_input.x, 0, move_input.y).rotated(Vector3.UP, input_synchronizer.head_rotation)
+	direction = direction.normalized()
 	var target: Vector2 = Vector2(direction.x, direction.z) * move_speed
 	var current: Vector2 = Vector2(velocity.x, velocity.z)
 	var result: Vector2 = current.move_toward(target, acceleration * delta)
@@ -58,3 +85,7 @@ func on_sync_timeout() -> void:
 func _sync(pos: Vector3, vel: Vector3) -> void:
 	global_position = global_position.lerp(pos, 0.5)
 	velocity = velocity.lerp(vel, 0.5)
+
+func _process(_delta: float) -> void:
+	if not is_multiplayer_authority():
+		head.rotation.y = input_synchronizer.head_rotation

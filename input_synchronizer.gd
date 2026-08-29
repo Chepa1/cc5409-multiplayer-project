@@ -4,6 +4,7 @@ extends MultiplayerSynchronizer
 
 @export var move_input: Vector2
 @export var jump: bool
+@export var head_rotation: float
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
