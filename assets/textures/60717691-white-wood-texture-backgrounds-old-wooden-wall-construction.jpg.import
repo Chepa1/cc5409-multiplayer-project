@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckhcsdweyhtyh"
-path.s3tc="res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.s3tc.ctex"
+uid="uid://1pdccw765og6"
+path.s3tc="res://.godot/imported/60717691-white-wood-texture-backgrounds-old-wooden-wall-construction.jpg-b43a1f126e4d8cb1a24e40977125308f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/LPOP_TextureAtlas1.png"
-dest_files=["res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.s3tc.ctex"]
+source_file="res://assets/textures/60717691-white-wood-texture-backgrounds-old-wooden-wall-construction.jpg"
+dest_files=["res://.godot/imported/60717691-white-wood-texture-backgrounds-old-wooden-wall-construction.jpg-b43a1f126e4d8cb1a24e40977125308f.s3tc.ctex"]
 
 [params]
 
