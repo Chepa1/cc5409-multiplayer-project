@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b8tdnjs3l3yu4"]
 
+[ext_resource type="Script" uid="uid://br08e7vlchy5q" path="res://scenes/office.gd" id="1_k578b"]
 [ext_resource type="Texture2D" uid="uid://1pdccw765og6" path="res://assets/textures/60717691-white-wood-texture-backgrounds-old-wooden-wall-construction.jpg" id="1_ujkv6"]
+[ext_resource type="PackedScene" uid="uid://bidk4fd0fvleb" path="res://player/player.tscn" id="2_07d2k"]
 [ext_resource type="PackedScene" uid="uid://b38enyidp4xsh" path="res://assets/models/Wall_3m_A.fbx" id="2_k578b"]
 [ext_resource type="PackedScene" uid="uid://dv7tpy45ooqps" path="res://assets/models/Desk_Corner_Booth_B.fbx" id="3_07d2k"]
 [ext_resource type="PackedScene" uid="uid://8efjofkxapoh" path="res://assets/models/ComputerMonitor_On.fbx" id="4_gnmmx"]
@@ -15,6 +17,18 @@
 [ext_resource type="PackedScene" uid="uid://bypw36lqd0iri" path="res://assets/models/PlantTypeA.fbx" id="13_uwvu6"]
 [ext_resource type="PackedScene" uid="uid://dqvkr0sexlc37" path="res://assets/models/Palette.fbx" id="14_7i2nt"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_gnmmx"]
+sky_material = SubResource("ProceduralSkyMaterial_07d2k")
+
+[sub_resource type="Environment" id="Environment_jp1e5"]
+background_mode = 2
+sky = SubResource("Sky_gnmmx")
+glow_enabled = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
 albedo_color = Color(0.99, 0.99, 0.99, 0.41960785)
 albedo_texture = ExtResource("1_ujkv6")
@@ -24,9 +38,7 @@ size = Vector2(20, 20)
 
 [sub_resource type="Skin" id="Skin_3gngh"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_d0u6y"]
-margin = 0.0
-size = Vector3(20, 3.5, 20.1)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_07d2k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(0.61642456, 0.696167, 2.2254639)
@@ -53,18 +65,25 @@ size = Vector3(0.3857422, 1.017334, 0.36767578)
 size = Vector3(1.2164307, 0.16333008, 1)
 
 [node name="Office" type="Node3D" unique_id=1091937459]
+script = ExtResource("1_k578b")
+player_scene = ExtResource("2_07d2k")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1257521989]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=223831825]
+environment = SubResource("Environment_jp1e5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=94567245]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=2068741187]
+[node name="MeshFloor" type="MeshInstance3D" parent="StaticBody3D" unique_id=2068741187]
 material_override = SubResource("StandardMaterial3D_g4v7s")
 mesh = SubResource("PlaneMesh_g4v7s")
 skin = SubResource("Skin_3gngh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=344360634]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7325287, -0.0177055)
-shape = SubResource("BoxShape3D_d0u6y")
-debug_color = Color(0.57087046, 0.39076203, 1, 0.41960785)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=776080567]
+shape = SubResource("WorldBoundaryShape3D_07d2k")
 
 [node name="Wall_A" parent="." unique_id=1175131235 instance=ExtResource("2_k578b")]
 transform = Transform3D(-6.7, 0, 2.6226832e-07, 0, 1.2, 0, -5.857326e-07, 0, -3, 10, 0, 10)
@@ -198,7 +217,7 @@ shape = SubResource("BoxShape3D_57qmd")
 [node name="shovel" parent="." unique_id=825823003 instance=ExtResource("11_8ywr3")]
 transform = Transform3D(-0.26258162, -0.23135173, -0.0052211056, -0.0472944, 0.061381333, -0.34131446, 0.22652623, -0.25535995, -0.07731215, 7.606468, 1.2162635, 7.348782)
 
-[node name="Shovel" parent="shovel" index="0" unique_id=808546202]
+[node name="Shovel" parent="shovel" index="0" unique_id=517116092]
 transform = Transform3D(100.00003, -1.9073486e-06, -3.8146973e-06, 1.5258789e-05, -9.536743e-06, 100.00004, -9.536743e-07, -100.00003, -1.9073486e-06, 0.00022315979, -0.000289917, 0.0016298294)
 material_override = SubResource("StandardMaterial3D_d0u6y")
 
@@ -267,5 +286,18 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 7.4942837, 0.05882716, 7.3056
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Palette/StaticBody3D" unique_id=627188794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0060424805, 0.091918945, 0)
 shape = SubResource("BoxShape3D_p1u0y")
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=86805155]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=487309779]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.531163, 3.3445578, 2.6259427)
+
+[node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=1930801736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010491371, 4.162903, 4.715571)
+
+[node name="Marker3D3" type="Marker3D" parent="SpawnPoints" unique_id=146428518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9485705, 4.2060285, 2.464415)
+
+[node name="Players" type="Node3D" parent="." unique_id=1257853971]
 
 [editable path="shovel"]
