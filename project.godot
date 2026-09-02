@@ -86,4 +86,5 @@ escape={
 
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.1287, 0.24612503, 0.33, 1)
