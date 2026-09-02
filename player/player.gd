@@ -80,8 +80,9 @@ func _physics_process(delta: float) -> void:
 #	global_position = pos
 
 func on_sync_timeout() -> void:
-	_sync(global_position, velocity)
-	
+	_sync.rpc(global_position, velocity)
+
+@rpc("authority","call_remote","reliable")
 func _sync(pos: Vector3, vel: Vector3) -> void:
 	global_position = global_position.lerp(pos, 0.5)
 	velocity = velocity.lerp(vel, 0.5)
