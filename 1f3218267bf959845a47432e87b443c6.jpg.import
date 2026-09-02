@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckhcsdweyhtyh"
-path.s3tc="res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.s3tc.ctex"
-path.etc2="res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.etc2.ctex"
+uid="uid://davkxykqj6d20"
+path.s3tc="res://.godot/imported/1f3218267bf959845a47432e87b443c6.jpg-6d2b08dea59f29975abf73a873875611.s3tc.ctex"
+path.etc2="res://.godot/imported/1f3218267bf959845a47432e87b443c6.jpg-6d2b08dea59f29975abf73a873875611.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/LPOP_TextureAtlas1.png"
-dest_files=["res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.s3tc.ctex", "res://.godot/imported/LPOP_TextureAtlas1.png-97eecb9c22aebeb6ffcb57f346d2cf04.etc2.ctex"]
+source_file="res://1f3218267bf959845a47432e87b443c6.jpg"
+dest_files=["res://.godot/imported/1f3218267bf959845a47432e87b443c6.jpg-6d2b08dea59f29975abf73a873875611.s3tc.ctex", "res://.godot/imported/1f3218267bf959845a47432e87b443c6.jpg-6d2b08dea59f29975abf73a873875611.etc2.ctex"]
 
 [params]
 

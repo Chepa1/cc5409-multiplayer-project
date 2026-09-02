@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://p3kmuvd0rubb"
 path.s3tc="res://.godot/imported/LPOP_TextureAtlas1_FULL.png-1d0a37998f5d7922864add463c25df5c.s3tc.ctex"
+path.etc2="res://.godot/imported/LPOP_TextureAtlas1_FULL.png-1d0a37998f5d7922864add463c25df5c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/LPOP_TextureAtlas1_FULL.png"
-dest_files=["res://.godot/imported/LPOP_TextureAtlas1_FULL.png-1d0a37998f5d7922864add463c25df5c.s3tc.ctex"]
+dest_files=["res://.godot/imported/LPOP_TextureAtlas1_FULL.png-1d0a37998f5d7922864add463c25df5c.s3tc.ctex", "res://.godot/imported/LPOP_TextureAtlas1_FULL.png-1d0a37998f5d7922864add463c25df5c.etc2.ctex"]
 
 [params]
 
