@@ -56,9 +56,10 @@ func test() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor(): #Agrega gravedad
 		velocity += get_gravity() * delta
-		
-	if is_on_floor() and input_synchronizer.jump: #salto
-		velocity.y = jump_speed
+	
+	if input_synchronizer.jump:	
+		if is_on_floor(): #salto
+			velocity.y = jump_speed
 		input_synchronizer.jump = false
 		
 	var move_input: Vector2 = input_synchronizer.move_input
