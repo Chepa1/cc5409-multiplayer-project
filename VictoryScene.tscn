@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://38apc3i25mye"]
+
+[ext_resource type="Script" uid="uid://kbg54lh3o243" path="res://victory_scene.gd" id="1_h4lgw"]
+[ext_resource type="FontFile" uid="uid://bcuh1q82apqw3" path="res://assets/textures/Honk-Regular-VariableFont_MORF,SHLN.ttf" id="1_kfnge"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font = ExtResource("1_kfnge")
+font_size = 120
+
+[node name="Node2D" type="Control" unique_id=1329497443]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_h4lgw")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1297765997]
+layout_mode = 0
+offset_right = 1282.0
+offset_bottom = 717.0
+color = Color(0.98793405, 0.8703209, 0.63901526, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1985509884]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 281.0
+offset_right = 888.0
+offset_bottom = 428.0
+text = "VICTORIA"
+label_settings = SubResource("LabelSettings_g4v7s")
+
+[node name="Button" type="Button" parent="." unique_id=554743875]
+layout_mode = 0
+offset_left = 518.0
+offset_top = 430.0
+offset_right = 814.0
+offset_bottom = 493.0
+text = "Volver al Menú"

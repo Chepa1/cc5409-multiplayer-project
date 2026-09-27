@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b2xs5qt8posdu" path="res://assets/models/PlantPotLargeC.fbx" id="12_t1nwb"]
 [ext_resource type="PackedScene" uid="uid://bypw36lqd0iri" path="res://assets/models/PlantTypeA.fbx" id="13_uwvu6"]
 [ext_resource type="PackedScene" uid="uid://dqvkr0sexlc37" path="res://assets/models/Palette.fbx" id="14_7i2nt"]
+[ext_resource type="Script" uid="uid://ci3v0t638v4dx" path="res://assets/models/shovel.gd" id="14_gnmmx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -57,6 +58,12 @@ roughness = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fcnqv"]
 size = Vector3(7.661521, 0.6362152, 2.2352295)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 2.69
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_g4v7s"]
+viewport_path = NodePath("shovel/Shovel/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7numd"]
 size = Vector3(0.3857422, 1.017334, 0.36767578)
@@ -214,12 +221,26 @@ transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_57qmd")
 
-[node name="shovel" parent="." unique_id=825823003 instance=ExtResource("11_8ywr3")]
+[node name="shovel" parent="." unique_id=825823003 node_paths=PackedStringArray("progress_bar") instance=ExtResource("11_8ywr3")]
 transform = Transform3D(-0.26258162, -0.23135173, -0.0052211056, -0.0472944, 0.061381333, -0.34131446, 0.22652623, -0.25535995, -0.07731215, 7.606468, 1.2162635, 7.348782)
+script = ExtResource("14_gnmmx")
+progress_bar = NodePath("Shovel/SubViewport/ProgressBar")
 
-[node name="Shovel" parent="shovel" index="0" unique_id=517116092]
+[node name="Shovel" parent="shovel" index="0" unique_id=66121528]
 transform = Transform3D(100.00003, -1.9073486e-06, -3.8146973e-06, 1.5258789e-05, -9.536743e-06, 100.00004, -9.536743e-07, -100.00003, -1.9073486e-06, 0.00022315979, -0.000289917, 0.0016298294)
 material_override = SubResource("StandardMaterial3D_d0u6y")
+
+[node name="SubViewport" type="SubViewport" parent="shovel/Shovel" index="0" unique_id=1879320553]
+size = Vector2i(245, 32)
+render_target_update_mode = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="shovel/Shovel/SubViewport" unique_id=669585772]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="shovel" unique_id=1637244526]
 transform = Transform3D(0.9999999, 1.4901161e-07, -2.9802322e-08, 1.4901161e-07, 1.0000001, 1.4901161e-08, -1.4901161e-08, 0, 0.99999976, 0, 0, 0)
@@ -229,6 +250,16 @@ transform = Transform3D(-0.017265059, 0.14182687, -0.98970044, -0.014897011, 0.9
 shape = SubResource("BoxShape3D_fcnqv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="shovel" unique_id=2006194866]
+
+[node name="Area3D" type="Area3D" parent="shovel" unique_id=1473583003]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shovel/Area3D" unique_id=2026294455]
+shape = SubResource("SphereShape3D_g4v7s")
+
+[node name="Node3D" type="Sprite3D" parent="shovel" unique_id=100908679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_g4v7s")
 
 [node name="PlantPotLargeC" parent="." unique_id=1861864412 instance=ExtResource("12_t1nwb")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 8.225339, 0, -0.2935953)

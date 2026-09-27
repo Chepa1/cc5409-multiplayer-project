@@ -2,7 +2,13 @@
 
 [ext_resource type="Theme" uid="uid://bwgdrcgopd0s1" path="res://lobby/lobby_theme.tres" id="1_3qnx1"]
 [ext_resource type="Script" uid="uid://cnbk17iq1x68f" path="res://ui/main_menu.gd" id="2_p6ygj"]
-[ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_xllby"]
+[ext_resource type="Texture2D" uid="uid://h4evvk717vhr" path="res://assets/textures/Picture1-removebg-preview.png" id="3_8uxxo"]
+[ext_resource type="FontFile" uid="uid://bcuh1q82apqw3" path="res://assets/textures/Honk-Regular-VariableFont_MORF,SHLN.ttf" id="4_ei257"]
+[ext_resource type="Texture2D" uid="uid://dxng4weljwwjr" path="res://assets/textures/Picture2-removebg-preview.png" id="5_p8ri8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wpcna"]
+font = ExtResource("4_ei257")
+font_size = 90
 
 [node name="MainMenu" type="Control" unique_id=90432305]
 layout_mode = 3
@@ -60,17 +66,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -490.0
-offset_top = -160.0
-offset_right = -34.0
-offset_bottom = 256.0
+offset_left = -641.0
+offset_top = -257.0
+offset_right = -79.0
+offset_bottom = 414.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer2" unique_id=389958185]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
-texture = ExtResource("2_xllby")
+texture = ExtResource("3_8uxxo")
 
 [node name="MarginContainer3" type="MarginContainer" parent="." unique_id=658664263]
 layout_mode = 1
@@ -79,14 +85,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -417.5
-offset_top = -360.0
-offset_right = 417.5
-offset_bottom = -112.0
+offset_left = -396.0
+offset_top = -346.0
+offset_right = 445.0
+offset_bottom = -108.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="MarginContainer3" unique_id=1435848050]
 layout_mode = 2
 theme_type_variation = &"Title"
-text = "Multiplayer Example"
+text = "AGARRINI LA PALINI"
+label_settings = SubResource("LabelSettings_wpcna")
+
+[node name="Picture2RemovebgPreview" type="Sprite2D" parent="MarginContainer3" unique_id=325823481]
+position = Vector2(284, 463)
+texture = ExtResource("5_p8ri8")

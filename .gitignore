@@ -1,5 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
+.gitignore
 
 # Godot-specific ignores
 .import/
@@ -15,3 +16,6 @@ data_*/
 mono_crash.*.json
 
 builds/
+
+*.exe
+*.x86_64
