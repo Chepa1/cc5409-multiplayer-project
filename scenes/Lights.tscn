@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b7dwvdrmky7x1"]
+
+[ext_resource type="Texture2D" uid="uid://1pdccw765og6" path="res://assets/textures/60717691-white-wood-texture-backgrounds-old-wooden-wall-construction.jpg" id="1_3pqeu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qg43x"]
+albedo_texture = ExtResource("1_3pqeu")
+emission_enabled = true
+emission = Color(0.89838815, 0.78158665, 0.6265531, 1)
+emission_energy_multiplier = 5.48
+
+[sub_resource type="BoxMesh" id="BoxMesh_qg43x"]
+material = SubResource("StandardMaterial3D_qg43x")
+size = Vector3(1, 0.2, 0.6)
+
+[node name="Lights" type="Node3D" unique_id=1081088865]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1923784210]
+mesh = SubResource("BoxMesh_qg43x")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1468313269]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.099999905, 4.7683716e-07, -0.100000024)
+light_color = Color(0.959125, 0.94249624, 0.8735268, 1)
+light_energy = 14.229
+shadow_enabled = true
+spot_range = 8.54
+spot_attenuation = 0.41
+spot_angle = 20.94

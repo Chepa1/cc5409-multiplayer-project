@@ -44,7 +44,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func setup(player_data: Statics.PlayerData) -> void:
 	label_3d.text = player_data.name
-	set_multiplayer_authority(player_data.id)
+	set_multiplayer_authority(player_data.id, true)
 	camera_3d.current = is_multiplayer_authority()
 	if is_multiplayer_authority():
 		sync_timer.start()
@@ -63,6 +63,8 @@ func _physics_process(delta: float) -> void:
 		input_synchronizer.jump = false
 		
 	var move_input: Vector2 = input_synchronizer.move_input
+	if is_multiplayer_authority():
+		move_input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	
 	var direction: Vector3 = Vector3(move_input.x, 0, move_input.y).rotated(Vector3.UP, input_synchronizer.head_rotation)
 	direction = direction.normalized()

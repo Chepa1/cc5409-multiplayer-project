@@ -10,7 +10,7 @@ extends Control
 
 func _ready() -> void:
 	if Game.instance.multiplayer_test:
-		get_tree().change_scene_to_file("res://lobby/lobby_test.tscn")
+		get_tree().change_scene_to_file.call_deferred("res://lobby/lobby_test.tscn")
 		return
 	
 	quit.pressed.connect(func() -> void: get_tree().quit())
