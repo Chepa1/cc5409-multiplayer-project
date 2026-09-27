@@ -12,10 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bd4l6pmr2pcjm" path="res://assets/models/Can_Energy.fbx" id="8_alkg7"]
 [ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="9_3hjlj"]
 [ext_resource type="PackedScene" uid="uid://ddqhqmity5loi" path="res://assets/models/PaperStack.fbx" id="10_qg43x"]
-[ext_resource type="PackedScene" uid="uid://j7e2mxo1dw2u" path="res://assets/models/shovel.fbx" id="11_8ywr3"]
 [ext_resource type="PackedScene" uid="uid://b2xs5qt8posdu" path="res://assets/models/PlantPotLargeC.fbx" id="12_t1nwb"]
 [ext_resource type="PackedScene" uid="uid://bypw36lqd0iri" path="res://assets/models/PlantTypeA.fbx" id="13_uwvu6"]
-[ext_resource type="PackedScene" uid="uid://dqvkr0sexlc37" path="res://assets/models/Palette.fbx" id="14_7i2nt"]
+[ext_resource type="PackedScene" uid="uid://b5xipdxlg7ext" path="res://scenes/shovel_palette.tscn" id="15_k578b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -49,20 +48,8 @@ size = Vector3(1.8255615, 0.7474365, 0.6170349)
 [sub_resource type="BoxShape3D" id="BoxShape3D_57qmd"]
 size = Vector3(1, 1.0708618, 0.6900635)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0u6y"]
-albedo_color = Color(3.7211158, 3.038576, 1.3540094, 1)
-metallic = 1.0
-metallic_specular = 0.0
-roughness = 0.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fcnqv"]
-size = Vector3(7.661521, 0.6362152, 2.2352295)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_7numd"]
 size = Vector3(0.3857422, 1.017334, 0.36767578)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_p1u0y"]
-size = Vector3(1.2164307, 0.16333008, 1)
 
 [node name="Office" type="Node3D" unique_id=1091937459]
 script = ExtResource("1_k578b")
@@ -75,14 +62,14 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=223831825]
 environment = SubResource("Environment_jp1e5")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=94567245]
+[node name="Piso" type="StaticBody3D" parent="." unique_id=94567245]
 
-[node name="MeshFloor" type="MeshInstance3D" parent="StaticBody3D" unique_id=2068741187]
+[node name="MeshFloor" type="MeshInstance3D" parent="Piso" unique_id=2068741187]
 material_override = SubResource("StandardMaterial3D_g4v7s")
 mesh = SubResource("PlaneMesh_g4v7s")
 skin = SubResource("Skin_3gngh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=776080567]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=776080567]
 shape = SubResource("WorldBoundaryShape3D_07d2k")
 
 [node name="Wall_A" parent="." unique_id=1175131235 instance=ExtResource("2_k578b")]
@@ -214,22 +201,6 @@ transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_57qmd")
 
-[node name="shovel" parent="." unique_id=825823003 instance=ExtResource("11_8ywr3")]
-transform = Transform3D(-0.26258162, -0.23135173, -0.0052211056, -0.0472944, 0.061381333, -0.34131446, 0.22652623, -0.25535995, -0.07731215, 7.606468, 1.2162635, 7.348782)
-
-[node name="Shovel" parent="shovel" index="0" unique_id=517116092]
-transform = Transform3D(100.00003, -1.9073486e-06, -3.8146973e-06, 1.5258789e-05, -9.536743e-06, 100.00004, -9.536743e-07, -100.00003, -1.9073486e-06, 0.00022315979, -0.000289917, 0.0016298294)
-material_override = SubResource("StandardMaterial3D_d0u6y")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="shovel" unique_id=1637244526]
-transform = Transform3D(0.9999999, 1.4901161e-07, -2.9802322e-08, 1.4901161e-07, 1.0000001, 1.4901161e-08, -1.4901161e-08, 0, 0.99999976, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="shovel/StaticBody3D" unique_id=913457179]
-transform = Transform3D(-0.017265059, 0.14182687, -0.98970044, -0.014897011, 0.98972154, 0.14208439, 0.99970335, 0.017200194, -0.014974885, 0.0005893707, -0.048877716, -2.486926)
-shape = SubResource("BoxShape3D_fcnqv")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="shovel" unique_id=2006194866]
-
 [node name="PlantPotLargeC" parent="." unique_id=1861864412 instance=ExtResource("12_t1nwb")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 8.225339, 0, -0.2935953)
 
@@ -278,15 +249,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017578125, 0.5098877, 0.006591797)
 shape = SubResource("BoxShape3D_7numd")
 
-[node name="Palette" parent="." unique_id=421313717 instance=ExtResource("14_7i2nt")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 7.4942837, 0.05882716, 7.3056498)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Palette" unique_id=1319056370]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Palette/StaticBody3D" unique_id=627188794]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0060424805, 0.091918945, 0)
-shape = SubResource("BoxShape3D_p1u0y")
-
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=86805155]
 
 [node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=487309779]
@@ -300,4 +262,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9485705, 4.2060285, 2.46441
 
 [node name="Players" type="Node3D" parent="." unique_id=1257853971]
 
-[editable path="shovel"]
+[node name="ShovelPalette" parent="." unique_id=1347526876 instance=ExtResource("15_k578b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 9)

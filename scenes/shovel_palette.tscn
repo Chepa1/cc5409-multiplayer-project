@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://b5xipdxlg7ext"]
+
+[ext_resource type="PackedScene" uid="uid://j7e2mxo1dw2u" path="res://assets/models/shovel.fbx" id="1_6thjt"]
+[ext_resource type="Script" uid="uid://dqrmmi81eyaxk" path="res://scenes/shovel_palette.gd" id="1_115ge"]
+[ext_resource type="PackedScene" uid="uid://dqvkr0sexlc37" path="res://assets/models/Palette.fbx" id="2_crtvm"]
+[ext_resource type="PackedScene" uid="uid://r1dbjrwao3bi" path="res://scenes/interaction_area.tscn" id="4_itcrb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_115ge"]
+albedo_color = Color(3.7211158, 3.038576, 1.3540094, 1)
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_itcrb"]
+size = Vector3(7.661521, 0.6362152, 2.2352295)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7r25k"]
+size = Vector3(1.2164307, 0.16333008, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p8p06"]
+size = Vector3(1.3184547, 1.4144897, 1.3455658)
+
+[node name="ShovelPalette" type="Node3D" unique_id=1347526876]
+script = ExtResource("1_115ge")
+
+[node name="shovel" parent="." unique_id=976719929 instance=ExtResource("1_6thjt")]
+transform = Transform3D(-0.26258162, -0.23135173, -0.0052211056, -0.0472944, 0.061381333, -0.34131446, 0.22652623, -0.25535995, -0.07731215, 0, 1.216, 0)
+
+[node name="Shovel" parent="shovel" index="0" unique_id=47996810]
+transform = Transform3D(100.00003, -1.9073486e-06, -3.8146973e-06, 1.5258789e-05, -9.536743e-06, 100.00004, -9.536743e-07, -100.00003, -1.9073486e-06, 0.00022315979, -0.000289917, 0.0016298294)
+material_override = SubResource("StandardMaterial3D_115ge")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="shovel" unique_id=1373527716]
+transform = Transform3D(0.9999999, 1.4901161e-07, -2.9802322e-08, 1.4901161e-07, 1.0000001, 1.4901161e-08, -1.4901161e-08, 0, 0.99999976, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shovel/StaticBody3D" unique_id=1452507563]
+transform = Transform3D(-0.017265059, 0.14182687, -0.98970044, -0.014897011, 0.98972154, 0.14208439, 0.99970335, 0.017200194, -0.014974885, 0.0005893707, -0.048877716, -2.486926)
+shape = SubResource("BoxShape3D_itcrb")
+
+[node name="Palette" parent="." unique_id=1509583327 instance=ExtResource("2_crtvm")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Palette" unique_id=1657727261]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Palette/StaticBody3D" unique_id=846658630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0060424805, 0.091918945, 0)
+shape = SubResource("BoxShape3D_7r25k")
+
+[node name="InteractionArea" parent="." unique_id=1856049996 node_paths=PackedStringArray("label") instance=ExtResource("4_itcrb")]
+label = NodePath("Label3D")
+
+[node name="Label3D" type="Label3D" parent="InteractionArea" unique_id=1317476645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.342021, -0.45624024)
+billboard = 1
+text = "Mantén E"
+font_size = 40
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=2046719411]
+transform = Transform3D(2.63, 0, 0, 0, 2.63, 0, 0, 0, 2.63, -0.00556311, 1.8250539, -0.008006483)
+shape = SubResource("BoxShape3D_p8p06")
+
+[editable path="shovel"]
