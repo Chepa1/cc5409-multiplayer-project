@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://dqvkr0sexlc37" path="res://assets/models/Palette.fbx" id="14_7i2nt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+sky_horizon_color = Color(0.92646754, 0.5598831, 0.44768107, 1)
+ground_horizon_color = Color(0.88496745, 0.5858422, 0.47217333, 1)
 
 [sub_resource type="Sky" id="Sky_gnmmx"]
 sky_material = SubResource("ProceduralSkyMaterial_07d2k")
@@ -27,10 +27,20 @@ sky_material = SubResource("ProceduralSkyMaterial_07d2k")
 [sub_resource type="Environment" id="Environment_jp1e5"]
 background_mode = 2
 sky = SubResource("Sky_gnmmx")
+ambient_light_color = Color(0.13333334, 0.24313726, 0.36862746, 0.34509805)
+ambient_light_sky_contribution = 0.3
+ambient_light_energy = 2.65
+tonemap_mode = 2
 glow_enabled = true
+glow_intensity = 0.18
+glow_strength = 0.92
+glow_bloom = 0.25
+adjustment_enabled = true
+adjustment_contrast = 1.02
+adjustment_saturation = 1.16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
-albedo_color = Color(0.99, 0.99, 0.99, 0.41960785)
+albedo_color = Color(0.64705884, 0.4509804, 0.27450982, 0.41960785)
 albedo_texture = ExtResource("1_ujkv6")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_g4v7s"]
@@ -217,7 +227,7 @@ shape = SubResource("BoxShape3D_57qmd")
 [node name="shovel" parent="." unique_id=825823003 instance=ExtResource("11_8ywr3")]
 transform = Transform3D(-0.26258162, -0.23135173, -0.0052211056, -0.0472944, 0.061381333, -0.34131446, 0.22652623, -0.25535995, -0.07731215, 7.606468, 1.2162635, 7.348782)
 
-[node name="Shovel" parent="shovel" index="0" unique_id=517116092]
+[node name="Shovel" parent="shovel" index="0" unique_id=1353902271]
 transform = Transform3D(100.00003, -1.9073486e-06, -3.8146973e-06, 1.5258789e-05, -9.536743e-06, 100.00004, -9.536743e-07, -100.00003, -1.9073486e-06, 0.00022315979, -0.000289917, 0.0016298294)
 material_override = SubResource("StandardMaterial3D_d0u6y")
 
