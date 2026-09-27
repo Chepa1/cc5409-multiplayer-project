@@ -50,8 +50,9 @@ shape = SubResource("BoxShape3D_7r25k")
 label = NodePath("Label3D")
 
 [node name="Label3D" type="Label3D" parent="InteractionArea" unique_id=1317476645]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.342021, -0.45624024)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.342021, 0.01690352)
 billboard = 1
+no_depth_test = true
 text = "Mantén E"
 font_size = 40
 
