@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://dkgvqbveu1vkc" path="res://assets/models/Book_A.fbx" id="20_book"]
 [ext_resource type="Texture2D" uid="uid://dtrxoihuctx57" path="res://assets/textures/ceiling_tiles/tiles_0013_ao_1k.jpg" id="20_ja80a"]
 [ext_resource type="PackedScene" uid="uid://d7eskset001" path="res://scenes/DeskSet.tscn" id="21_deskset"]
+[ext_resource type="PackedScene" uid="uid://dadvuanfkyy5r" path="res://assets/models/Light_StandingLight_A.fbx" id="22_floor_lamp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
 sky_horizon_color = Color(0.92646754, 0.5598831, 0.44768107, 1)
@@ -115,17 +116,20 @@ size = Vector3(1.8255615, 0.7474365, 0.6170349)
 [sub_resource type="BoxShape3D" id="BoxShape3D_57qmd"]
 size = Vector3(1, 1.0708618, 0.6900635)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor_lamp"]
+size = Vector3(0.45, 1, 0.45)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_asset_small"]
-size = Vector3(0.6, 1.2, 0.5)
+size = Vector3(0.6, 1.2, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_asset_tall"]
-size = Vector3(1.05, 1.2, 0.4)
+size = Vector3(0.8, 1.2, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_asset_cooler"]
 size = Vector3(0.5, 1.8, 0.7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_asset_plant"]
-size = Vector3(1.1, 1.8, 1.1)
+size = Vector3(0.6, 1.8, 0.8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0u6y"]
 albedo_color = Color(3.7211158, 3.038576, 1.3540094, 1)
@@ -176,10 +180,10 @@ use_collision = true
 size = Vector3(1, 10, 2)
 
 [node name="Partition_Aisle_Left" type="CSGBox3D" parent="StaticBody3D/MeshFloor" unique_id=422206413]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45, 1.5, -6.7500005)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.35, 1.5, -6.7500005)
 material_override = SubResource("StandardMaterial3D_7i2nt")
 use_collision = true
-size = Vector3(3.6000001, 3, 0.2)
+size = Vector3(3.8, 3, 0.2)
 
 [node name="Partition_Aisle_Left2" type="CSGBox3D" parent="StaticBody3D/MeshFloor" unique_id=1695804392]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8, 1.3, -0.75)
@@ -194,16 +198,16 @@ use_collision = true
 size = Vector3(0.3, 3, 8)
 
 [node name="RoomDivider_South_Right2" type="CSGBox3D" parent="StaticBody3D/MeshFloor" unique_id=1086268842]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10, 1.5, -7.6)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 10.200001, 1.5, -7.6)
 material_override = SubResource("StandardMaterial3D_7i2nt")
 use_collision = true
-size = Vector3(0.3, 3, 9.2)
+size = Vector3(0.3, 3, 9.6)
 
 [node name="Partition_Between_Desks_North" type="CSGBox3D" parent="StaticBody3D/MeshFloor" unique_id=1613945158]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.700001, 0.5, 1.0499992)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.6, 0.5, 1.0499992)
 material_override = SubResource("StandardMaterial3D_7i2nt")
 use_collision = true
-size = Vector3(0.3, 5, 2.8)
+size = Vector3(0.3, 5, 3)
 
 [node name="RoomDivider_South_Right3" type="CSGBox3D" parent="StaticBody3D/MeshFloor" unique_id=1791268987]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 11.7, 1.5, 4.6)
@@ -235,7 +239,6 @@ shape = SubResource("WorldBoundaryShape3D_07d2k")
 
 [node name="Ceiling" type="CSGBox3D" parent="." unique_id=589361213]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 8, -0.5)
-visible = false
 material_override = SubResource("StandardMaterial3D_3hjlj")
 gi_mode = 2
 gi_lightmap_texel_scale = 0.6035
@@ -372,7 +375,7 @@ use_collision = true
 size = Vector3(0.3, 3, 8)
 
 [node name="RoomDivider_North_Back" type="CSGBox3D" parent="OpenRooms" unique_id=167216324]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -10.6, 1.5, -13)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.400001, 1.5, -13.6)
 material_override = SubResource("StandardMaterial3D_7i2nt")
 use_collision = true
 size = Vector3(6, 3, 0.3)
@@ -753,7 +756,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77769184, 0.69741356, -0.21
 transform = Transform3D(0.4927162, 0, -0.87018985, 0, 1, 0, 0.87018996, 0, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
 [node name="DeskSet_01" parent="." unique_id=1347987039 instance=ExtResource("21_deskset")]
-transform = Transform3D(-3.4969112e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.4969112e-08, -10.8, 0.010011153, -11)
+transform = Transform3D(-3.4969112e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.4969112e-08, -9.6, 0.010011153, -12.6)
 
 [node name="DeskSet_02" parent="." unique_id=2147295245 instance=ExtResource("21_deskset")]
 transform = Transform3D(-3.4969112e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.4969112e-08, -1.4, 0.010011153, -9.599999)
@@ -765,10 +768,91 @@ transform = Transform3D(-3.4969112e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.4969112e-
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 12.2, 0.010011153, 4.0000005)
 
 [node name="DeskSet_05" parent="." unique_id=1287267187 instance=ExtResource("21_deskset")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 11.599999, 0.010011153, -8.4)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 9.599999, 0.010011153, -8.4)
 
 [node name="DeskSet_06" parent="." unique_id=991239750 instance=ExtResource("21_deskset")]
 transform = Transform3D(-0.8, 0, 0, 0, 0.8, 0, 0, 0, -0.8, -10, 0.010011153, 11)
+
+[node name="FloorLamp_01" parent="." unique_id=1420668787 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -10.2, 0, -11.4)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_01" unique_id=1262654425]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_02" parent="." unique_id=1349228166 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.6, 0, -9.400001)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_02" unique_id=1532327212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_03" parent="." unique_id=349020346 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 7.6000004, 0, 1.5999999)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_03" unique_id=1103988147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_04" parent="." unique_id=1037386420 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 11, 0, 4)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_04" unique_id=1528606431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_06" parent="." unique_id=1445509164 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.6, 0, 0)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_06" unique_id=217021455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_07" parent="." unique_id=2050275238 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -6.6, 0, 13)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_07" unique_id=1596957042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_08" parent="." unique_id=197730889 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -2.4, 0, 5.8)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_08" unique_id=1938585783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
+
+[node name="FloorLamp_09" parent="." unique_id=1436434079 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 13.799999, 0.20000005, -8.4)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_09" unique_id=1698303297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6000001
+
+[node name="FloorLamp_10" parent="." unique_id=765595368 instance=ExtResource("22_floor_lamp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 5.2, 0, 13)
+
+[node name="LampGlow" type="OmniLight3D" parent="FloorLamp_10" unique_id=177892404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+light_color = Color(1, 0.82, 0.52, 1)
+light_energy = 5.827
+omni_range = 2.6
 
 [node name="DeskSet_07" parent="." unique_id=298316127 instance=ExtResource("21_deskset")]
 transform = Transform3D(0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, 0.8, -8.8, 0.010011153, 13)
@@ -784,8 +868,44 @@ transform = Transform3D(-0.8, 0, 0, 0, 0.8, 0, 0, 0, -0.8, 10, 0.010011153, 11)
 
 [node name="AssetCollisions" type="StaticBody3D" parent="." unique_id=1800330798]
 
+[node name="FloorLamp_01" type="CollisionShape3D" parent="AssetCollisions" unique_id=1701333479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.6, -10)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_02" type="CollisionShape3D" parent="AssetCollisions" unique_id=879534300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.2, -9.400001)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_03" type="CollisionShape3D" parent="AssetCollisions" unique_id=2097177074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 1.2, 4)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_04" type="CollisionShape3D" parent="AssetCollisions" unique_id=1082528756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0.40000004, 4)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_06" type="CollisionShape3D" parent="AssetCollisions" unique_id=1573861830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8, 1.2, 11)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_07" type="CollisionShape3D" parent="AssetCollisions" unique_id=278777561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 1.2, 13)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_08" type="CollisionShape3D" parent="AssetCollisions" unique_id=45777842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.8000001, 6)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_09" type="CollisionShape3D" parent="AssetCollisions" unique_id=1857180242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.6, -8.2)
+shape = SubResource("BoxShape3D_floor_lamp")
+
+[node name="FloorLamp_10" type="CollisionShape3D" parent="AssetCollisions" unique_id=503358966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 0.6, 13)
+shape = SubResource("BoxShape3D_floor_lamp")
+
 [node name="Printer_A" type="CollisionShape3D" parent="AssetCollisions" unique_id=2124766017]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.925, 0.8, -9.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.925, 0.8, -9.65)
 shape = SubResource("BoxShape3D_asset_small")
 
 [node name="Printer_B" type="CollisionShape3D" parent="AssetCollisions" unique_id=561512470]
@@ -801,15 +921,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 1.2, 0.8)
 shape = SubResource("BoxShape3D_asset_small")
 
 [node name="FilingCabinet_A" type="CollisionShape3D" parent="AssetCollisions" unique_id=1769983508]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9, 0.9, 1.925)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.025, 0.7, 1.925)
 shape = SubResource("BoxShape3D_asset_tall")
 
 [node name="FilingCabinet_B" type="CollisionShape3D" parent="AssetCollisions" unique_id=848496103]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9, 1.5, -3.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9, 0.7, -3.6)
 shape = SubResource("BoxShape3D_asset_tall")
 
 [node name="WaterCooler_A" type="CollisionShape3D" parent="AssetCollisions" unique_id=1538341072]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -13.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6000004, 1, -13.900001)
 shape = SubResource("BoxShape3D_asset_cooler")
 
 [node name="WaterCooler_B" type="CollisionShape3D" parent="AssetCollisions" unique_id=1065561021]
@@ -825,11 +945,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1, 1, -6.2)
 shape = SubResource("BoxShape3D_asset_cooler")
 
 [node name="Plant_C7" type="CollisionShape3D" parent="AssetCollisions" unique_id=1606558559]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.950001, 1, -7.15)
 shape = SubResource("BoxShape3D_asset_plant")
 
 [node name="Plant_C8" type="CollisionShape3D" parent="AssetCollisions" unique_id=1502620566]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 1, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 1, 2)
 shape = SubResource("BoxShape3D_asset_plant")
 
 [node name="Plant_C9" type="CollisionShape3D" parent="AssetCollisions" unique_id=758188084]
@@ -865,7 +985,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 13, 0, -7)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
 
 [node name="PlantPotLargeC8" parent="." unique_id=1892870349 instance=ExtResource("12_t1nwb")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -5.6, 0, 3)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -5.6, 0, 2)
 
 [node name="PlantTypeA" parent="PlantPotLargeC8" unique_id=1752368665 instance=ExtResource("13_uwvu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
@@ -883,7 +1003,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -13, 0, -7)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 2.3841858e-07)
 
 [node name="FilingCabinet_A" parent="." unique_id=141597665 instance=ExtResource("16_cabinet")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.9, 0, 2)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12.9, 0, 1.4)
 
 [node name="FilingCabinet_B" parent="." unique_id=1098899498 instance=ExtResource("16_cabinet")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 13.9, 0, -3.6)
@@ -901,13 +1021,13 @@ transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 13.5, 0.2, -2.8)
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -12.9, 0, 0.8)
 
 [node name="WaterCooler_A" parent="." unique_id=565969088 instance=ExtResource("18_cooler")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -13.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, -13.900001)
 
 [node name="WaterCooler_B" parent="." unique_id=1139137917 instance=ExtResource("18_cooler")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -5.2, 0, 11.9)
 
 [node name="WasteBin_A" parent="." unique_id=294246830 instance=ExtResource("19_bin")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -14.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0000005, 0, -9.9)
 
 [node name="WasteBin_B" parent="." unique_id=2107061556 instance=ExtResource("19_bin")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 10.5)
@@ -919,7 +1039,7 @@ transform = Transform3D(0.9848077, 0, 0.17364818, 0, 1, 0, -0.17364818, 0, 0.984
 transform = Transform3D(0.3420201, 0, 0.9396926, 0, 1, 0, -0.9396926, 0, 0.3420201, -13.099999, 0.8000001, 10.5)
 
 [node name="PlantPotLargeC5" parent="." unique_id=977826670 instance=ExtResource("12_t1nwb")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 10.5, 0, -9)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 9.5, 0, -11)
 
 [node name="PlantTypeA" parent="PlantPotLargeC5" unique_id=1736066515 instance=ExtResource("13_uwvu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
@@ -957,7 +1077,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017578125, 0.5098877, 0.006
 shape = SubResource("BoxShape3D_7numd")
 
 [node name="PlantPotLargeC2" parent="." unique_id=1714701081 instance=ExtResource("12_t1nwb")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12.655295, 0, -0.2935953)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -13.055295, 0, -0.2935953)
 
 [node name="PlantTypeA" parent="PlantPotLargeC2" unique_id=1033576386 instance=ExtResource("13_uwvu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
@@ -969,7 +1089,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017578125, 0.5098877, 0.006
 shape = SubResource("BoxShape3D_7numd")
 
 [node name="PlantPotLargeC3" parent="." unique_id=2051618033 instance=ExtResource("12_t1nwb")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4.0925016, 0, -13.248435)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4.4925017, 0, -14.048435)
 
 [node name="PlantTypeA" parent="PlantPotLargeC3" unique_id=152478779 instance=ExtResource("13_uwvu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)

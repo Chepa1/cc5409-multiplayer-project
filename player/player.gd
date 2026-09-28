@@ -24,7 +24,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 		
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		@warning_ignore("unsafe_property_access")
 		head.rotate_y(-event.relative.x * mouse_sensitivity)
+		@warning_ignore("unsafe_property_access")
 		camera_3d.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera_3d.rotation.x = clamp(
 			camera_3d.rotation.x,
