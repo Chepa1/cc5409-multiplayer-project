@@ -841,7 +841,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -7)
 shape = SubResource("BoxShape3D_asset_plant")
 
 [node name="Printer_A" parent="." unique_id=932963206 instance=ExtResource("15_printer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7, 1.4, -9.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.099999, 1.1999999, -9.5)
 
 [node name="Printer_B" parent="." unique_id=1070695969 instance=ExtResource("15_printer")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -13.1, 1.1999999, 10.5)
