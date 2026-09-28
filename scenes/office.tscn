@@ -136,7 +136,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_57qmd")
 
 [node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B/Chair_DeskChair_A" unique_id=1381822242 groups=["sit_points"]]
-transform = Transform3D(1, 0, 2.9802322e-08, 1.3038516e-08, 1, 0, 2.9802322e-08, -1.1175871e-08, 1, -0.012334824, 0.6904538, 0.025278091)
+transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
 [node name="PaperStack" parent="Desk_Corner_Booth_B" unique_id=732197484 instance=ExtResource("10_qg43x")]
@@ -180,8 +180,8 @@ transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_57qmd")
 
-[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A" unique_id=800956978 groups=["sit_points"]]
-transform = Transform3D(1, 0, 2.9802322e-08, 1.3038516e-08, 1, 0, 2.9802322e-08, -1.1175871e-08, 1, -0.012334824, 0.6904538, 0.025278091)
+[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A" unique_id=184817666 groups=["sit_points"]]
+transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
 [node name="Desk_Corner_Booth_B3" parent="." unique_id=1613110325 instance=ExtResource("3_07d2k")]
@@ -222,8 +222,8 @@ transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_57qmd")
 
-[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=56788211 groups=["sit_points"]]
-transform = Transform3D(1, 0, 2.9802322e-08, 1.3038516e-08, 1, 0, 2.9802322e-08, -1.1175871e-08, 1, -0.012334824, 0.6904538, 0.025278091)
+[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=201014863 groups=["sit_points"]]
+transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
 [node name="shovel" parent="." unique_id=825823003 instance=ExtResource("11_8ywr3")]
