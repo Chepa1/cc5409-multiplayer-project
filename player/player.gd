@@ -90,6 +90,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		@warning_ignore("unsafe_property_access")
 		head.rotate_y(-event.relative.x * mouse_sensitivity)
 		camera_3d.rotate_x(
 			-event.relative.y * mouse_sensitivity
@@ -111,7 +112,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func setup(player_data: Statics.PlayerData) -> void:
 	label_3d.text = player_data.name
-	set_multiplayer_authority(player_data.id)
+	set_multiplayer_authority(player_data.id, true)
 	camera_3d.current = is_multiplayer_authority()
 	if is_multiplayer_authority():
 		sync_timer.start()

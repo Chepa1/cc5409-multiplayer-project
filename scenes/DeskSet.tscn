@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://d7eskset001"]
+
+[ext_resource type="PackedScene" uid="uid://dv7tpy45ooqps" path="res://assets/models/Desk_Corner_Booth_B.fbx" id="1_desk"]
+[ext_resource type="PackedScene" uid="uid://8efjofkxapoh" path="res://assets/models/ComputerMonitor_On.fbx" id="2_monitor"]
+[ext_resource type="PackedScene" uid="uid://ks5nm8y0n557" path="res://assets/models/ComputerKeyboard.fbx" id="3_keyboard"]
+[ext_resource type="PackedScene" uid="uid://cui50pxll3hgp" path="res://assets/models/ComputerGamingMouse.fbx" id="4_mouse"]
+[ext_resource type="PackedScene" uid="uid://bd4l6pmr2pcjm" path="res://assets/models/Can_Energy.fbx" id="5_can"]
+[ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="6_chair"]
+[ext_resource type="PackedScene" uid="uid://y1slqr3r2vt3" path="res://assets/models/Briefcase.fbx" id="7_case"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_desk"]
+size = Vector3(2.3, 1, 1.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chair"]
+size = Vector3(1, 1.4, 1)
+
+[node name="DeskSet" type="Node3D"]
+
+[node name="Desk_Corner_Booth_B" parent="." instance=ExtResource("1_desk")]
+
+[node name="ComputerMonitor_On" parent="." instance=ExtResource("2_monitor")]
+transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.00131158, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
+
+[node name="ComputerKeyboard" parent="ComputerMonitor_On" instance=ExtResource("3_keyboard")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.079633474, -0.03780532, 0.2328744)
+
+[node name="ComputerGamingMouse" parent="ComputerMonitor_On" instance=ExtResource("4_mouse")]
+transform = Transform3D(0.90627635, 0, 0.42268574, 0, 1, 0, -0.42268574, 0, 0.90627635, 0.3638785, -0.010525882, 0.32774496)
+
+[node name="Can_Energy" parent="." instance=ExtResource("5_can")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77769184, 0.69741356, -0.21816063)
+
+[node name="Chair_DeskChair_A" parent="." instance=ExtResource("6_chair")]
+transform = Transform3D(0.4927162, 0, -0.87018985, 0, 1, 0, 0.87018996, 0, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
+
+[node name="Briefcase" parent="." instance=ExtResource("7_case")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25531435, 0.7110292, -1.6869359)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="DeskCollision" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_desk")
+
+[node name="ChairCollision" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.8, -1.2)
+shape = SubResource("BoxShape3D_chair")

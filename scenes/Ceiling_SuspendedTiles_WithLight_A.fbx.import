@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dts46u3d70uxh"
-path="res://.godot/imported/Ceiling_SuspendedTiles_WithLight_A.fbx-afc37abbebd4f6537573ab88f4ad4300.scn"
+path="res://.godot/imported/Ceiling_SuspendedTiles_WithLight_A.fbx-88b46da48fd41e92239b99d6df064b48.scn"
 
 [deps]
 
-source_file="res://assets/models/Ceiling_SuspendedTiles_WithLight_A.fbx"
-dest_files=["res://.godot/imported/Ceiling_SuspendedTiles_WithLight_A.fbx-afc37abbebd4f6537573ab88f4ad4300.scn"]
+source_file="res://scenes/Ceiling_SuspendedTiles_WithLight_A.fbx"
+dest_files=["res://.godot/imported/Ceiling_SuspendedTiles_WithLight_A.fbx-88b46da48fd41e92239b99d6df064b48.scn"]
 
 [params]
 
