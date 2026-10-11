@@ -17,11 +17,9 @@
 [ext_resource type="PackedScene" uid="uid://bd4l6pmr2pcjm" path="res://assets/models/Can_Energy.fbx" id="8_alkg7"]
 [ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="9_3hjlj"]
 [ext_resource type="PackedScene" uid="uid://ddqhqmity5loi" path="res://assets/models/PaperStack.fbx" id="10_qg43x"]
-[ext_resource type="PackedScene" uid="uid://j7e2mxo1dw2u" path="res://assets/models/shovel.fbx" id="11_8ywr3"]
 [ext_resource type="Texture2D" uid="uid://bhkuh1n44dnbo" path="res://assets/textures/wood/wood_0057_preview.jpg" id="11_t1nwb"]
 [ext_resource type="PackedScene" uid="uid://b2xs5qt8posdu" path="res://assets/models/PlantPotLargeC.fbx" id="12_t1nwb"]
 [ext_resource type="PackedScene" uid="uid://bypw36lqd0iri" path="res://assets/models/PlantTypeA.fbx" id="13_uwvu6"]
-[ext_resource type="PackedScene" uid="uid://dqvkr0sexlc37" path="res://assets/models/Palette.fbx" id="14_7i2nt"]
 [ext_resource type="PackedScene" uid="uid://yd2xbpjuxwqa" path="res://assets/models/Printer.fbx" id="15_printer"]
 [ext_resource type="PackedScene" uid="uid://c1i4o0484503r" path="res://assets/models/FilingCabinetThreeStack_Case.fbx" id="16_cabinet"]
 [ext_resource type="PackedScene" uid="uid://0oa3oy4bkmi8" path="res://assets/models/Shelving_3Tier_Column_Grey.fbx" id="17_shelf"]
@@ -31,7 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://dtrxoihuctx57" path="res://assets/textures/ceiling_tiles/tiles_0013_ao_1k.jpg" id="20_ja80a"]
 [ext_resource type="PackedScene" uid="uid://d7eskset001" path="res://scenes/DeskSet.tscn" id="21_deskset"]
 [ext_resource type="PackedScene" uid="uid://dadvuanfkyy5r" path="res://assets/models/Light_StandingLight_A.fbx" id="22_floor_lamp"]
-[ext_resource type="Script" uid="uid://ci3v0t638v4dx" path="res://assets/models/shovel.gd" id="14_gnmmx"]
+
+[ext_resource type="PackedScene" uid="uid://b5xipdxlg7ext" path="res://scenes/shovel_palette.tscn" id="30_shovel_palette"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
 sky_horizon_color = Color(0.92646754, 0.5598831, 0.44768107, 1)
@@ -132,26 +131,8 @@ size = Vector3(0.5, 1.8, 0.7)
 [sub_resource type="BoxShape3D" id="BoxShape3D_asset_plant"]
 size = Vector3(0.6, 1.8, 0.8)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0u6y"]
-albedo_color = Color(3.7211158, 3.038576, 1.3540094, 1)
-metallic = 1.0
-metallic_specular = 0.0
-roughness = 0.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fcnqv"]
-size = Vector3(7.661521, 0.6362152, 2.2352295)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
-radius = 2.69
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_g4v7s"]
-viewport_path = NodePath("shovel/Shovel/SubViewport")
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_7numd"]
 size = Vector3(0.3857422, 1.017334, 0.36767578)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_p1u0y"]
-size = Vector3(1.2164307, 0.16333008, 1)
 
 [node name="Office" type="Node3D" unique_id=1091937459]
 script = ExtResource("1_k578b")
@@ -1599,46 +1580,6 @@ transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.
 gizmo_extents = 0.81
 
 
-[node name="shovel" parent="." unique_id=825823003 node_paths=PackedStringArray("progress_bar") instance=ExtResource("11_8ywr3")]
-transform = Transform3D(-0.26258162, -0.23135173, -0.0052211056, -0.0472944, 0.061381333, -0.34131446, 0.22652623, -0.25535995, -0.07731215, 7.606468, 1.2162635, 7.348782)
-script = ExtResource("14_gnmmx")
-progress_bar = NodePath("Shovel/SubViewport/ProgressBar")
-
-[node name="Shovel" parent="shovel" index="0" unique_id=66121528]
-transform = Transform3D(100.00003, -1.9073486e-06, -3.8146973e-06, 1.5258789e-05, -9.536743e-06, 100.00004, -9.536743e-07, -100.00003, -1.9073486e-06, 0.00022315979, -0.000289917, 0.0016298294)
-material_override = SubResource("StandardMaterial3D_d0u6y")
-
-[node name="SubViewport" type="SubViewport" parent="shovel/Shovel" index="0" unique_id=1879320553]
-size = Vector2i(245, 32)
-render_target_update_mode = 4
-
-[node name="ProgressBar" type="ProgressBar" parent="shovel/Shovel/SubViewport" unique_id=669585772]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-show_percentage = false
-
-[node name="StaticBody3D" type="StaticBody3D" parent="shovel" unique_id=1637244526]
-transform = Transform3D(0.9999999, 1.4901161e-07, -2.9802322e-08, 1.4901161e-07, 1.0000001, 1.4901161e-08, -1.4901161e-08, 0, 0.99999976, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="shovel/StaticBody3D" unique_id=913457179]
-transform = Transform3D(-0.017265648, 0.14182979, -0.9897405, -0.014897585, 0.9897417, 0.14208984, 0.99973994, 0.017197996, -0.014975637, -5.1438646, -4.581482, -2.5892172)
-shape = SubResource("BoxShape3D_fcnqv")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="shovel" unique_id=2006194866]
-
-[node name="Area3D" type="Area3D" parent="shovel" unique_id=1473583003]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="shovel/Area3D" unique_id=2026294455]
-shape = SubResource("SphereShape3D_g4v7s")
-
-[node name="Node3D" type="Sprite3D" parent="shovel" unique_id=100908679]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
-billboard = 1
-texture = SubResource("ViewportTexture_g4v7s")
-
 [node name="PlantPotLargeC" parent="." unique_id=1861864412 instance=ExtResource("12_t1nwb")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 13.425339, 0, 1.7064047)
 
@@ -1687,15 +1628,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.017578125, 0.5098877, 0.006591797)
 shape = SubResource("BoxShape3D_7numd")
 
-[node name="Palette" parent="." unique_id=421313717 instance=ExtResource("14_7i2nt")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 10.294284, 0.05882716, 7.3056498)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Palette" unique_id=1319056370]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Palette/StaticBody3D" unique_id=627188794]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0060424805, 0.091918945, 0)
-shape = SubResource("BoxShape3D_p1u0y")
-
 [node name="SpawnPoints" type="Node3D" parent="." unique_id=86805155]
 
 [node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=487309779]
@@ -1709,4 +1641,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9485705, 4.2060285, 2.46441
 
 [node name="Players" type="Node3D" parent="." unique_id=1257853971]
 
-[editable path="shovel"]
+[node name="ShovelPalette" parent="." instance=ExtResource("30_shovel_palette")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.294284, 0.05882716, 7.3056498)
