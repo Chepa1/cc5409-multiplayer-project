@@ -1,8 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dpdxv14spamro"]
 
 [ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="1_model"]
-
-[ext_resource type="Script" path="res://scenes/sit_interaction_area.gd" id="2_sit_area"]
+[ext_resource type="Script" uid="uid://s0w8rsiqdbd3" path="res://scenes/sit_interaction_area.gd" id="2_sit_area"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_chair"]
 size = Vector3(1, 1.0708618, 0.6900635)
@@ -10,33 +9,32 @@ size = Vector3(1, 1.0708618, 0.6900635)
 [sub_resource type="BoxShape3D" id="BoxShape3D_interaction"]
 size = Vector3(2.4, 2, 2.4)
 
-[node name="Chair" type="Node3D"]
+[node name="Chair" type="Node3D" unique_id=146256326]
 
-[node name="Model" parent="." instance=ExtResource("1_model")]
+[node name="Model" parent="." unique_id=1410191307 instance=ExtResource("1_model")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=785284747]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-position = Vector3(0, 0.50227183, -0.026184082)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=399379295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_chair")
 
-[node name="SitPoint" type="Marker3D" parent="." groups=["sit_points"]]
+[node name="SitPoint" type="Marker3D" parent="." unique_id=2047159809 groups=["sit_points"]]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
-[node name="InteractionArea" type="Area3D" parent="." node_paths=PackedStringArray("label")]
-position = Vector3(-0.012334824, 0.6904538, 0.025278091)
+[node name="InteractionArea" type="Area3D" parent="." unique_id=536220006 node_paths=PackedStringArray("label")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012334824, 0.6904538, 0.025278091)
 script = ExtResource("2_sit_area")
 label = NodePath("Label3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=1138194714]
 shape = SubResource("BoxShape3D_interaction")
 
-[node name="Label3D" type="Label3D" parent="InteractionArea"]
-position = Vector3(0, 0.8, 0)
+[node name="Label3D" type="Label3D" parent="InteractionArea" unique_id=1122607276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4763096, 0)
 billboard = 1
 no_depth_test = true
 text = "Presiona C para sentarte"
-font_size = 32
+font_size = 24
 outline_size = 8
-pixel_size = 0.005
