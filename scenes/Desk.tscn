@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://dv7tpy45ooqps" path="res://assets/models/Desk_Corner_Booth_B.fbx" id="1_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_side"]
+size = Vector3(0.61642456, 0.696167, 2.2254639)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_front"]
+size = Vector3(1.8255615, 0.7474365, 0.6170349)
+
+[node name="Desk" type="Node3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="SideCollision" type="CollisionShape3D" parent="StaticBody3D"]
+position = Vector3(0.22218323, 0.3556198, -1.0235405)
+shape = SubResource("BoxShape3D_side")
+
+[node name="FrontCollision" type="CollisionShape3D" parent="StaticBody3D"]
+position = Vector3(0.8566284, 0.33450902, -0.229599)
+shape = SubResource("BoxShape3D_front")

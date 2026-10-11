@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="1_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chair"]
+size = Vector3(1, 1.0708618, 0.6900635)
+
+[node name="Chair" type="Node3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_model")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+position = Vector3(0, 0.50227183, -0.026184082)
+shape = SubResource("BoxShape3D_chair")

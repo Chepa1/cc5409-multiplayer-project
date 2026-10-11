@@ -1,18 +1,12 @@
 [gd_scene format=3 uid="uid://d7eskset001"]
 
-[ext_resource type="PackedScene" uid="uid://dv7tpy45ooqps" path="res://assets/models/Desk_Corner_Booth_B.fbx" id="1_desk"]
+[ext_resource type="PackedScene" path="res://scenes/Desk.tscn" id="1_desk"]
 [ext_resource type="PackedScene" uid="uid://8efjofkxapoh" path="res://assets/models/ComputerMonitor_On.fbx" id="2_monitor"]
 [ext_resource type="PackedScene" uid="uid://ks5nm8y0n557" path="res://assets/models/ComputerKeyboard.fbx" id="3_keyboard"]
 [ext_resource type="PackedScene" uid="uid://cui50pxll3hgp" path="res://assets/models/ComputerGamingMouse.fbx" id="4_mouse"]
 [ext_resource type="PackedScene" uid="uid://bd4l6pmr2pcjm" path="res://assets/models/Can_Energy.fbx" id="5_can"]
-[ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="6_chair"]
+[ext_resource type="PackedScene" path="res://scenes/Chair.tscn" id="6_chair"]
 [ext_resource type="PackedScene" uid="uid://y1slqr3r2vt3" path="res://assets/models/Briefcase.fbx" id="7_case"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_desk"]
-size = Vector3(2.3, 1, 1.8)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_chair"]
-size = Vector3(1, 1.4, 1)
 
 [node name="DeskSet" type="Node3D"]
 
@@ -39,13 +33,3 @@ gizmo_extents = 0.81
 
 [node name="Briefcase" parent="." instance=ExtResource("7_case")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25531435, 0.7110292, -1.6869359)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="DeskCollision" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-shape = SubResource("BoxShape3D_desk")
-
-[node name="ChairCollision" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.8, -1.2)
-shape = SubResource("BoxShape3D_chair")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://br08e7vlchy5q" path="res://scenes/office.gd" id="1_k578b"]
 [ext_resource type="Texture2D" uid="uid://1pdccw765og6" path="res://assets/textures/60717691-white-wood-texture-backgrounds-old-wooden-wall-construction.jpg" id="1_ujkv6"]
 [ext_resource type="PackedScene" uid="uid://bidk4fd0fvleb" path="res://player/player.tscn" id="2_07d2k"]
-[ext_resource type="PackedScene" uid="uid://dv7tpy45ooqps" path="res://assets/models/Desk_Corner_Booth_B.fbx" id="3_07d2k"]
+[ext_resource type="PackedScene" path="res://scenes/Desk.tscn" id="3_07d2k"]
 [ext_resource type="PackedScene" uid="uid://8efjofkxapoh" path="res://assets/models/ComputerMonitor_On.fbx" id="4_gnmmx"]
 [ext_resource type="PackedScene" uid="uid://csufcatxi5io1" path="res://scenes/Wall_1.tscn" id="4_jp1e5"]
 [ext_resource type="Texture2D" uid="uid://bqejctcqyrwir" path="res://assets/textures/ceiling_tiles/tiles_0013_color_1k.jpg" id="5_alkg7"]
@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b1lkygs7401cn" path="res://assets/textures/marcel-strauss-E7DsoC0mcpw-unsplash.jpg" id="7_8ywr3"]
 [ext_resource type="PackedScene" uid="uid://y1slqr3r2vt3" path="res://assets/models/Briefcase.fbx" id="7_ja80a"]
 [ext_resource type="PackedScene" uid="uid://bd4l6pmr2pcjm" path="res://assets/models/Can_Energy.fbx" id="8_alkg7"]
-[ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="9_3hjlj"]
+[ext_resource type="PackedScene" path="res://scenes/Chair.tscn" id="9_3hjlj"]
 [ext_resource type="PackedScene" uid="uid://ddqhqmity5loi" path="res://assets/models/PaperStack.fbx" id="10_qg43x"]
 [ext_resource type="Texture2D" uid="uid://bhkuh1n44dnbo" path="res://assets/textures/wood/wood_0057_preview.jpg" id="11_t1nwb"]
 [ext_resource type="PackedScene" uid="uid://b2xs5qt8posdu" path="res://assets/models/PlantPotLargeC.fbx" id="12_t1nwb"]
@@ -395,17 +395,6 @@ size = Vector3(0.3, 3, 5)
 [node name="Desk_Corner_Booth_B" parent="." unique_id=503975934 instance=ExtResource("3_07d2k")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -6.028184, 0.010011153, -7.074274)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B" unique_id=1893107065]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B/StaticBody3D" unique_id=2125399313]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B/StaticBody3D" unique_id=1804524796]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
-
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B" unique_id=817450844 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
 
@@ -424,12 +413,6 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B" unique_id=2092398493 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B/Chair_DeskChair_A" unique_id=1831083182]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B/Chair_DeskChair_A/StaticBody3D" unique_id=903861945]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B/Chair_DeskChair_A" unique_id=1381822242 groups=["sit_points"]]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
@@ -439,17 +422,6 @@ transform = Transform3D(0.99999964, -1.1175871e-08, -7.450581e-09, 0, 1, -3.4924
 
 [node name="Desk_Corner_Booth_B2" parent="." unique_id=370744478 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.504436, 0.010011153, 0.46146536)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B2" unique_id=1405746453]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B2/StaticBody3D" unique_id=1938757284]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B2/StaticBody3D" unique_id=795351611]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B2" unique_id=1839354513 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -469,29 +441,12 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B2" unique_id=479842503 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A" unique_id=1255728146]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A/StaticBody3D" unique_id=1692875369]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A" unique_id=184817666 groups=["sit_points"]]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
 [node name="Desk_Corner_Booth_B3" parent="." unique_id=1613110325 instance=ExtResource("3_07d2k")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6.028184, 0.010011153, 5.921026)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B3" unique_id=372891703]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B3/StaticBody3D" unique_id=1660096683]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B3/StaticBody3D" unique_id=1784560024]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B3" unique_id=976838908 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -511,25 +466,8 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B3" unique_id=1807582124 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=1449068633]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B3/Chair_DeskChair_A/StaticBody3D" unique_id=987365747]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="Desk_Corner_Booth_B4" parent="." unique_id=1372091239 instance=ExtResource("3_07d2k")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6.028184, 0.010011153, 5.921026)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B4" unique_id=1398069549]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B4/StaticBody3D" unique_id=973757635]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B4/StaticBody3D" unique_id=1764381382]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B4" unique_id=1763200718 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -549,25 +487,8 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B4" unique_id=1401949537 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B4/Chair_DeskChair_A" unique_id=760664585]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B4/Chair_DeskChair_A/StaticBody3D" unique_id=324231174]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="Desk_Corner_Booth_B5" parent="." unique_id=53283134 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.020022303, -0.8)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5" unique_id=120493835]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/StaticBody3D" unique_id=1852291465]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/StaticBody3D" unique_id=543288859]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B5" unique_id=887474610 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -587,25 +508,8 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B5" unique_id=1713023622 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5/Chair_DeskChair_A" unique_id=2072071102]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Chair_DeskChair_A/StaticBody3D" unique_id=1246531319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="Desk_Corner_Booth_B3" parent="Desk_Corner_Booth_B5" unique_id=551569097 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1.9470718e-07, 0, 1, 0, 1, 0, -1, 0, 1.9470718e-07, 4.971816, 0.010011122, 2.5210261)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3" unique_id=697354665]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/StaticBody3D" unique_id=1939638794]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/StaticBody3D" unique_id=304403111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3" unique_id=452554636 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -624,12 +528,6 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3" unique_id=1454319962 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=558076502]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/Chair_DeskChair_A/StaticBody3D" unique_id=1930719967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
 
 [node name="Desk_Corner_Booth_B6" parent="." unique_id=31219983 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010011153, -9.6)
@@ -1049,17 +947,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
 [node name="Desk_Corner_Booth_B4" parent="." unique_id=1372091239 instance=ExtResource("3_07d2k")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6.028184, 0.010011153, 5.921026)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B4" unique_id=1398069549]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B4/StaticBody3D" unique_id=973757635]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B4/StaticBody3D" unique_id=1764381382]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
-
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B4" unique_id=1763200718 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
 
@@ -1078,25 +965,8 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B4" unique_id=1401949537 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B4/Chair_DeskChair_A" unique_id=760664585]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B4/Chair_DeskChair_A/StaticBody3D" unique_id=324231174]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="Desk_Corner_Booth_B5" parent="." unique_id=53283134 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.020022303, -0.8)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5" unique_id=120493835]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/StaticBody3D" unique_id=1852291465]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/StaticBody3D" unique_id=543288859]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B5" unique_id=887474610 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -1116,25 +986,8 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B5" unique_id=1713023622 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5/Chair_DeskChair_A" unique_id=2072071102]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Chair_DeskChair_A/StaticBody3D" unique_id=1246531319]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
-
 [node name="Desk_Corner_Booth_B3" parent="Desk_Corner_Booth_B5" unique_id=551569097 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1.9470718e-07, 0, 1, 0, 1, 0, -1, 0, 1.9470718e-07, 4.971816, 0.010011122, 2.5210261)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3" unique_id=697354665]
-transform = Transform3D(0.99999994, -1.8626451e-09, -1.8626451e-09, 0, 1, -2.910383e-11, 1.8626451e-09, 0, 0.99999994, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/StaticBody3D" unique_id=1939638794]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22218323, 0.3556198, -1.0235405)
-shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/StaticBody3D" unique_id=304403111]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8566284, 0.33450902, -0.229599)
-shape = SubResource("BoxShape3D_3gngh")
 
 [node name="ComputerMonitor_On" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3" unique_id=452554636 instance=ExtResource("4_gnmmx")]
 transform = Transform3D(-0.59909475, -0.020166041, 0.8004239, -0.013134076, 0.9997957, 0.015358562, -0.8005704, -0.0013115803, -0.5992372, 0.16628456, 0.73190403, -0.35396528)
@@ -1153,12 +1006,6 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3" unique_id=1454319962 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=558076502]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Desk_Corner_Booth_B5/Desk_Corner_Booth_B3/Chair_DeskChair_A/StaticBody3D" unique_id=1930719967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50227183, -0.026184082)
-shape = SubResource("BoxShape3D_57qmd")
 
 [node name="Desk_Corner_Booth_B6" parent="." unique_id=31219983 instance=ExtResource("3_07d2k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010011153, -9.6)
