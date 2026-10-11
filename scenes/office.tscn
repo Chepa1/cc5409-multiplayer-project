@@ -32,6 +32,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b5xipdxlg7ext" path="res://scenes/shovel_palette.tscn" id="30_shovel_palette"]
 
+[ext_resource type="PackedScene" path="res://scenes/SitPoint.tscn" id="sit_point_ui"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
 sky_horizon_color = Color(0.92646754, 0.5598831, 0.44768107, 1)
 ground_horizon_color = Color(0.88496745, 0.5858422, 0.47217333, 1)
@@ -413,7 +415,7 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B" unique_id=2092398493 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B/Chair_DeskChair_A" unique_id=1381822242 groups=["sit_points"]]
+[node name="SitPoint" parent="Desk_Corner_Booth_B/Chair_DeskChair_A" unique_id=1381822242 instance=ExtResource("sit_point_ui")]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
@@ -441,7 +443,7 @@ transform = Transform3D(0.9999996, -1.3038516e-08, -7.450581e-09, 0, 1, -4.36557
 [node name="Chair_DeskChair_A" parent="Desk_Corner_Booth_B2" unique_id=479842503 instance=ExtResource("9_3hjlj")]
 transform = Transform3D(0.4927162, -3.7252903e-09, -0.87018985, -9.313226e-10, 0.9999999, 0, 0.87018996, -1.9499566e-09, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A" unique_id=184817666 groups=["sit_points"]]
+[node name="SitPoint" parent="Desk_Corner_Booth_B2/Chair_DeskChair_A" unique_id=184817666 instance=ExtResource("sit_point_ui")]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
@@ -1422,7 +1424,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -12.9, 0, 9.4)
 [node name="PlantTypeA" parent="PlantPotLargeC6" unique_id=975015940 instance=ExtResource("13_uwvu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24730957, 0)
 
-[node name="SitPoint" type="Marker3D" parent="Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=201014863 groups=["sit_points"]]
+[node name="SitPoint" parent="Desk_Corner_Booth_B3/Chair_DeskChair_A" unique_id=201014863 instance=ExtResource("sit_point_ui")]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 

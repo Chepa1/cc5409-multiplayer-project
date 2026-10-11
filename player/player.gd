@@ -1,11 +1,12 @@
 extends CharacterBody3D
 class_name Player
 
+signal sit_state_changed
+
 @export var move_speed: float = 5
 @export var jump_speed: float = 7
 @export var acceleration: float = 20
 @export var mouse_sensitivity: float = 0.005
-@export var sit_distance: float = 2.0
 @export var sit_height_scale: float = 0.55
 @export var sit_visual_offset: float = 0.45
 @export var sit_head_offset: float = 0.45
@@ -13,13 +14,13 @@ class_name Player
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
-@onready var sit_prompt: Label3D = $SitPrompt
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
 @onready var sync_timer: Timer = $SyncTimer
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var collision: CollisionShape3D = $CollisionShape3D
 
 var sentado: bool = false
+var available_sit_points: Array[Marker3D] = []
 var silla_actual: Marker3D = null
 var posicion_salida_silla: Vector3 = Vector3.ZERO
 var posicion_antes_sentarse: Vector3 = Vector3.ZERO
@@ -51,11 +52,18 @@ func _input(event: InputEvent) -> void:
 		else:
 			buscar_silla()
 
+func add_sit_point(point: Marker3D) -> void:
+	if not available_sit_points.has(point):
+		available_sit_points.append(point)
+
+func remove_sit_point(point: Marker3D) -> void:
+	available_sit_points.erase(point)
+
 func silla_cercana() -> Marker3D:
 	var silla_mas_cercana: Marker3D = null
-	var menor_distancia: float = sit_distance
-	for punto: Node in get_tree().get_nodes_in_group("sit_points"):
-		if punto is Marker3D:
+	var menor_distancia: float = INF
+	for punto: Marker3D in available_sit_points:
+		if is_instance_valid(punto):
 			var distancia: float = global_position.distance_to(punto.global_position)
 			if distancia < menor_distancia:
 				menor_distancia = distancia
@@ -67,22 +75,13 @@ func buscar_silla() -> void:
 	if silla != null:
 		sentarse.rpc(silla.global_position, silla.global_rotation.y)
 
-func actualizar_aviso_silla() -> void:
-	if not is_multiplayer_authority() or sentado:
-		sit_prompt.hide()
-		return
-	var silla: Marker3D = silla_cercana()
-	sit_prompt.visible = silla != null
-	if silla != null:
-		sit_prompt.global_position = silla.global_position + Vector3.UP * 0.8
-
 @rpc("authority", "call_local", "reliable")
 func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
 	posicion_antes_sentarse = global_position
 	posicion_silla_actual = posicion_silla
 	rotacion_silla_actual = rotacion_silla
 	sentado = true
-	sit_prompt.hide()
+	sit_state_changed.emit()
 	velocity = Vector3.ZERO
 	global_position = posicion_silla
 	# La salida queda detrás de la silla, aunque el jugador gire la cámara.
@@ -158,6 +157,7 @@ func levantarse(posicion_segura: Vector3) -> void:
 	if not sentado:
 		return
 	sentado = false
+	sit_state_changed.emit()
 	mesh.scale = mesh_scale_original
 	mesh.position = mesh_position_original
 	collision.scale = collision_scale_original
@@ -268,6 +268,5 @@ func _sync(pos: Vector3, vel: Vector3) -> void:
 	)
 
 func _process(_delta: float) -> void:
-	actualizar_aviso_silla()
 	if not is_multiplayer_authority():
 		head.rotation.y = input_synchronizer.head_rotation

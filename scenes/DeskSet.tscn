@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" path="res://scenes/Chair.tscn" id="6_chair"]
 [ext_resource type="PackedScene" uid="uid://y1slqr3r2vt3" path="res://assets/models/Briefcase.fbx" id="7_case"]
 
+[ext_resource type="PackedScene" path="res://scenes/SitPoint.tscn" id="sit_point_ui"]
+
 [node name="DeskSet" type="Node3D"]
 
 [node name="Desk_Corner_Booth_B" parent="." instance=ExtResource("1_desk")]
@@ -27,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77769184, 0.69741356, -0.21
 [node name="Chair_DeskChair_A" parent="." instance=ExtResource("6_chair")]
 transform = Transform3D(0.4927162, 0, -0.87018985, 0, 1, 0, 0.87018996, 0, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
-[node name="SitPoint" type="Marker3D" parent="Chair_DeskChair_A" groups=["sit_points"]]
+[node name="SitPoint" parent="Chair_DeskChair_A" instance=ExtResource("sit_point_ui")]
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
