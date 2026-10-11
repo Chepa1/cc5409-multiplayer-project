@@ -33,6 +33,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77769184, 0.69741356, -0.21
 [node name="Chair_DeskChair_A" parent="." instance=ExtResource("6_chair")]
 transform = Transform3D(0.4927162, 0, -0.87018985, 0, 1, 0, 0.87018996, 0, 0.49271634, 1.0704732, 0.018166825, -1.1898355)
 
+[node name="SitPoint" type="Marker3D" parent="Chair_DeskChair_A" groups=["sit_points"]]
+transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
+gizmo_extents = 0.81
+
 [node name="Briefcase" parent="." instance=ExtResource("7_case")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25531435, 0.7110292, -1.6869359)
 
