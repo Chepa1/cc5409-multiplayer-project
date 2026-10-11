@@ -13,6 +13,7 @@ class_name Player
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
+@onready var sit_prompt: Label3D = $SitPrompt
 @onready var input_synchronizer: InputSynchronizer = $InputSynchronizer
 @onready var sync_timer: Timer = $SyncTimer
 @onready var mesh: MeshInstance3D = $MeshInstance3D
@@ -50,21 +51,30 @@ func _input(event: InputEvent) -> void:
 		else:
 			buscar_silla()
 
-func buscar_silla() -> void:
-	var sit_points = get_tree().get_nodes_in_group("sit_points")
+func silla_cercana() -> Marker3D:
 	var silla_mas_cercana: Marker3D = null
 	var menor_distancia: float = sit_distance
-	for punto in sit_points:
+	for punto: Node in get_tree().get_nodes_in_group("sit_points"):
 		if punto is Marker3D:
-			var distancia = global_position.distance_to(punto.global_position)
+			var distancia: float = global_position.distance_to(punto.global_position)
 			if distancia < menor_distancia:
 				menor_distancia = distancia
 				silla_mas_cercana = punto
-	if silla_mas_cercana != null:
-		sentarse.rpc(
-			silla_mas_cercana.global_position,
-			silla_mas_cercana.global_rotation.y
-		)
+	return silla_mas_cercana
+
+func buscar_silla() -> void:
+	var silla: Marker3D = silla_cercana()
+	if silla != null:
+		sentarse.rpc(silla.global_position, silla.global_rotation.y)
+
+func actualizar_aviso_silla() -> void:
+	if not is_multiplayer_authority() or sentado:
+		sit_prompt.hide()
+		return
+	var silla: Marker3D = silla_cercana()
+	sit_prompt.visible = silla != null
+	if silla != null:
+		sit_prompt.global_position = silla.global_position + Vector3.UP * 0.8
 
 @rpc("authority", "call_local", "reliable")
 func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
@@ -72,6 +82,7 @@ func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
 	posicion_silla_actual = posicion_silla
 	rotacion_silla_actual = rotacion_silla
 	sentado = true
+	sit_prompt.hide()
 	velocity = Vector3.ZERO
 	global_position = posicion_silla
 	# La salida queda detrás de la silla, aunque el jugador gire la cámara.
@@ -257,5 +268,6 @@ func _sync(pos: Vector3, vel: Vector3) -> void:
 	)
 
 func _process(_delta: float) -> void:
+	actualizar_aviso_silla()
 	if not is_multiplayer_authority():
 		head.rotation.y = input_synchronizer.head_rotation

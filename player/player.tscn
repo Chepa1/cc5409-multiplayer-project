@@ -42,3 +42,12 @@ text = "Sushipleto"
 
 [node name="SyncTimer" type="Timer" parent="." unique_id=1758544219]
 wait_time = 0.1
+
+[node name="SitPrompt" type="Label3D" parent="."]
+top_level = true
+visible = false
+billboard = 1
+text = "Presiona C para sentarte"
+font_size = 32
+outline_size = 8
+pixel_size = 0.005
