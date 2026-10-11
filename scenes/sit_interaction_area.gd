@@ -1,6 +1,6 @@
 extends "res://scenes/interaction_area.gd"
 
-@onready var sit_point: Marker3D = get_parent() as Marker3D
+@onready var sit_point: Marker3D = get_node("../SitPoint") as Marker3D
 
 func _ready() -> void:
 	super._ready()

@@ -24,16 +24,16 @@ shape = SubResource("BoxShape3D_chair")
 transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
 gizmo_extents = 0.81
 
-[node name="InteractionArea" type="Area3D" parent="SitPoint" node_paths=PackedStringArray("label")]
+[node name="InteractionArea" type="Area3D" parent="." node_paths=PackedStringArray("label")]
+position = Vector3(-0.012334824, 0.6904538, 0.025278091)
 script = ExtResource("2_sit_area")
 label = NodePath("Label3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SitPoint/InteractionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("BoxShape3D_interaction")
 
-[node name="Label3D" type="Label3D" parent="SitPoint/InteractionArea"]
+[node name="Label3D" type="Label3D" parent="InteractionArea"]
 position = Vector3(0, 0.8, 0)
-visible = false
 billboard = 1
 no_depth_test = true
 text = "Presiona C para sentarte"
