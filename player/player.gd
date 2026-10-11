@@ -21,6 +21,9 @@ class_name Player
 var sentado: bool = false
 var silla_actual: Marker3D = null
 var posicion_salida_silla: Vector3 = Vector3.ZERO
+var posicion_antes_sentarse: Vector3 = Vector3.ZERO
+var posicion_silla_actual: Vector3 = Vector3.ZERO
+var rotacion_silla_actual: float = 0.0
 var mesh_scale_original: Vector3
 var mesh_position_original: Vector3
 var collision_scale_original: Vector3
@@ -43,7 +46,7 @@ func _input(event: InputEvent) -> void:
 		test.rpc()
 	if event.is_action_pressed("sit") and is_multiplayer_authority():
 		if sentado:
-			levantarse.rpc()
+			intentar_levantarse()
 		else:
 			buscar_silla()
 
@@ -65,6 +68,9 @@ func buscar_silla() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
+	posicion_antes_sentarse = global_position
+	posicion_silla_actual = posicion_silla
+	rotacion_silla_actual = rotacion_silla
 	sentado = true
 	velocity = Vector3.ZERO
 	global_position = posicion_silla
@@ -81,8 +87,63 @@ func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
 	head.position = head_position_original + Vector3(0, -0.4, 0)
 	label_3d.position = label_position_original + Vector3(0, -0.4, 0)
 
+func intentar_levantarse() -> void:
+	if not sentado or not is_multiplayer_authority():
+		return
+	var destino: Variant = buscar_salida_segura()
+	if destino != null:
+		# Todos los pares reciben la misma posición elegida por el jugador local.
+		levantarse.rpc(destino)
+
+func buscar_salida_segura() -> Variant:
+	# Primero detrás; si está bloqueado, probar diagonales y los lados.
+	var angulos: Array[float] = [0.0, PI / 4.0, -PI / 4.0, PI / 2.0, -PI / 2.0, PI * 0.75, -PI * 0.75, PI]
+	for distancia: float in [stand_offset, stand_offset + 0.3, stand_offset + 0.6]:
+		for angulo: float in angulos:
+			var candidato: Vector3 = posicion_silla_actual + Vector3.BACK.rotated(
+				Vector3.UP, rotacion_silla_actual + angulo
+			) * distancia
+			var destino: Variant = validar_salida(candidato)
+			if destino != null:
+				return destino
+	# La posición de aproximación suele ser útil en rincones estrechos.
+	return validar_salida(posicion_antes_sentarse)
+
+func validar_salida(candidato: Vector3) -> Variant:
+	var espacio: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var suelo: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		candidato + Vector3.UP, candidato + Vector3.DOWN * 2.0, collision_mask, [get_rid()]
+	)
+	var impacto: Dictionary = espacio.intersect_ray(suelo)
+	if impacto.is_empty():
+		return null
+	var punto_suelo: Vector3 = impacto.position
+	var normal_suelo: Vector3 = impacto.normal
+	# Evitar usar una mesa o el asiento como suelo de salida.
+	if normal_suelo.y < 0.7 or punto_suelo.y > posicion_silla_actual.y - 0.25:
+		return null
+	var capsula: CapsuleShape3D = collision.shape as CapsuleShape3D
+	if capsula == null:
+		return null
+	candidato.y = punto_suelo.y + capsula.height * 0.5 - collision.position.y + 0.02
+	var trayecto: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		posicion_silla_actual, candidato, collision_mask, [get_rid()]
+	)
+	if not espacio.intersect_ray(trayecto).is_empty():
+		return null
+	var consulta: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
+	consulta.shape = capsula
+	consulta.transform = collision.global_transform
+	consulta.transform.origin = candidato + global_basis * collision.position
+	consulta.collision_mask = collision_mask
+	consulta.exclude = [get_rid()]
+	consulta.margin = 0.01
+	if not espacio.intersect_shape(consulta, 1).is_empty():
+		return null
+	return candidato
+
 @rpc("authority", "call_local", "reliable")
-func levantarse() -> void:
+func levantarse(posicion_segura: Vector3) -> void:
 	if not sentado:
 		return
 	sentado = false
@@ -93,7 +154,7 @@ func levantarse() -> void:
 	head.position = head_position_original
 	label_3d.position = label_position_original
 	velocity = Vector3.ZERO
-	global_position = posicion_salida_silla
+	global_position = posicion_segura
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
