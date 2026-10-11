@@ -4,11 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://dtb1skmkrurio" path="res://input_synchronizer.tscn" id="2_rkbax"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u5bk5"]
+radius = 0.4
+height = 1.6
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
+radius = 0.4
+height = 1.6
 
 [sub_resource type="BoxMesh" id="BoxMesh_u5bk5"]
-size = Vector3(0.092041016, 0.1352539, 0.16931152)
+size = Vector3(0.07363281, 0.10820312, 0.13544922)
 
 [node name="Player" type="CharacterBody3D" unique_id=1596243814]
 script = ExtResource("1_oul6g")
@@ -22,15 +26,15 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 [node name="Head" type="Node3D" parent="." unique_id=323422308]
 
 [node name="Nose" type="MeshInstance3D" parent="Head" unique_id=2070919644]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000117868185, 0.43237305, -0.5638226)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00009429455, 0.34589844, -0.45105808)
 mesh = SubResource("BoxMesh_u5bk5")
 skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1782533293]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7772436, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6217949, 0)
 
 [node name="Label3D" type="Label3D" parent="." unique_id=501445476]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.306096, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.0448768, 0)
 billboard = 1
 text = "Sushipleto"
 
