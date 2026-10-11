@@ -9,7 +9,7 @@ class_name Player
 @export var sit_height_scale: float = 0.55
 @export var sit_visual_offset: float = 0.45
 @export var sit_head_offset: float = 0.45
-@export var stand_offset: float = 0.8
+@export var stand_offset: float = 1.2
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
@@ -20,6 +20,7 @@ class_name Player
 
 var sentado: bool = false
 var silla_actual: Marker3D = null
+var posicion_salida_silla: Vector3 = Vector3.ZERO
 var mesh_scale_original: Vector3
 var mesh_position_original: Vector3
 var collision_scale_original: Vector3
@@ -67,6 +68,10 @@ func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
 	sentado = true
 	velocity = Vector3.ZERO
 	global_position = posicion_silla
+	# La salida queda detrás de la silla, aunque el jugador gire la cámara.
+	posicion_salida_silla = posicion_silla + Vector3.BACK.rotated(
+		Vector3.UP, rotacion_silla
+	) * stand_offset
 	head.rotation.y = rotacion_silla - global_rotation.y
 	input_synchronizer.head_rotation = head.rotation.y
 	mesh.scale = mesh_scale_original
@@ -78,6 +83,8 @@ func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func levantarse() -> void:
+	if not sentado:
+		return
 	sentado = false
 	mesh.scale = mesh_scale_original
 	mesh.position = mesh_position_original
@@ -86,10 +93,7 @@ func levantarse() -> void:
 	head.position = head_position_original
 	label_3d.position = label_position_original
 	velocity = Vector3.ZERO
-	var salida = -head.global_transform.basis.z
-	salida.y = 0
-	salida = salida.normalized()
-	global_position += salida * stand_offset
+	global_position = posicion_salida_silla
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
