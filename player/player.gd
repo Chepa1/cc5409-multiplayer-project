@@ -66,7 +66,8 @@ func sentarse(posicion_silla: Vector3, rotacion_silla: float) -> void:
 	sentado = true
 	velocity = Vector3.ZERO
 	global_position = posicion_silla
-	global_rotation.y = rotacion_silla
+	head.rotation.y = rotacion_silla - global_rotation.y
+	input_synchronizer.head_rotation = head.rotation.y
 	mesh.scale = mesh_scale_original
 	mesh.position = mesh_position_original
 	collision.scale = collision_scale_original
@@ -83,8 +84,11 @@ func levantarse() -> void:
 	collision.position = collision_position_original
 	head.position = head_position_original
 	label_3d.position = label_position_original
-	global_position += -global_transform.basis.z * stand_offset
 	velocity = Vector3.ZERO
+	var salida = -head.global_transform.basis.z
+	salida.y = 0
+	salida = salida.normalized()
+	global_position += salida * stand_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
