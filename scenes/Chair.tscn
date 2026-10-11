@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dby10hvxi85mw" path="res://assets/models/Chair_DeskChair.fbx" id="1_model"]
 
+[ext_resource type="PackedScene" path="res://scenes/SitPoint.tscn" id="2_sit_point"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_chair"]
 size = Vector3(1, 1.0708618, 0.6900635)
 
@@ -14,3 +16,7 @@ size = Vector3(1, 1.0708618, 0.6900635)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 position = Vector3(0, 0.50227183, -0.026184082)
 shape = SubResource("BoxShape3D_chair")
+
+[node name="SitPoint" parent="." instance=ExtResource("2_sit_point")]
+transform = Transform3D(-0.76544094, -0.008682812, -0.64344764, -0.030427229, 0.99927896, 0.022711556, 0.6427865, 0.036962695, -0.7651531, -0.012334824, 0.6904538, 0.025278091)
+gizmo_extents = 0.81
