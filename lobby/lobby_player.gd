@@ -25,7 +25,7 @@ func update() -> void:
 	if not player:
 		return
 	name_label.text = player.name
-	role_label.text = Statics.get_role_name(player.role)
+	role_label.text = "Sin asignar" if Game.instance.random_manager else Statics.get_role_name(player.role)
 	ready_icon.modulate = Color.GREEN if player.vote else Color.WHITE
 
 

@@ -68,11 +68,13 @@ func _send_player_data_id(index: int, id: int) -> void:
 
 
 func _on_start_game_timeout() -> void:
-	_start_game.rpc()
+	_start_game.rpc(Game.instance.choose_manager())
 
 
 @rpc("reliable", "call_local")
-func _start_game() -> void:
+func _start_game(manager_id: int) -> void:
+	if Game.instance.use_roles and not Game.instance.apply_match_roles(manager_id):
+		return
 	get_tree().change_scene_to_packed(Game.instance.main_scene)
 
 

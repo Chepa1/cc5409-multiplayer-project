@@ -4,19 +4,20 @@ extends Node
 signal players_updated
 signal player_updated(id: int)
 signal vote_updated(id: int)
+signal role_settings_updated
 
 static var instance: Game
 
 @export var multiplayer_test: bool = false
 @export var use_roles: bool = true
-@export var unique_roles: bool = true # won't start with repeated roles
-@export var all_roles: bool = true # won't start if all roles aren't selected
 @export var min_players: int = 2 # won't start if there are at least these players
 @export var fill_screen: bool = true
 @export var test_players: Array[PlayerDataResource] = [] # first one is server
 @export var main_scene: PackedScene
 
 var players: Array[Statics.PlayerData] = []
+var random_manager: bool = true
+var selected_manager_id: int = 0
 var change_window_scale : bool = true :
 	set(value):
 		var last_value: bool = change_window_scale
@@ -54,6 +55,8 @@ func sort_players() -> void:
 
 
 func add_player(player: Statics.PlayerData) -> void:
+	# Ignore roles in joining players' payloads; the host owns the selection.
+	player.role = _lobby_role(player.id)
 	var existing_player: Statics.PlayerData = null
 	for data: Statics.PlayerData in players:
 		if data.id == player.id:
@@ -105,15 +108,58 @@ func update_indices(player_indices: Dictionary) -> void:
 	players_updated.emit()
 
 
-@rpc("any_peer", "reliable", "call_local")
-func set_player_role(id: int, role: Statics.Role) -> void:
-	var player: Statics.PlayerData = get_player(id)
-	player.role = role
-	player_updated.emit(id)
+func _lobby_role(id: int) -> Statics.Role:
+	if random_manager:
+		return Statics.Role.NONE
+	return Statics.Role.MANAGER if id == selected_manager_id else Statics.Role.EMPLOYEE
 
 
-func set_current_player_role(role: Statics.Role) -> void:
-	set_player_role.rpc(multiplayer.get_unique_id(), role)
+func configure_roles(random_choice: bool, manager_id: int = 0) -> void:
+	if not multiplayer.is_server() or not get_tree().current_scene is LobbyWaitingScreen:
+		return
+	if not random_choice and get_player(manager_id) == null:
+		return
+	reset_votes()
+	sync_role_settings.rpc(random_choice, 0 if random_choice else manager_id)
+
+
+@rpc("authority", "reliable", "call_local")
+func sync_role_settings(random_choice: bool, manager_id: int) -> void:
+	random_manager = random_choice
+	selected_manager_id = manager_id
+	for player: Statics.PlayerData in players:
+		player.role = _lobby_role(player.id)
+		player_updated.emit(player.id)
+	role_settings_updated.emit()
+
+
+func refresh_role_settings() -> void:
+	if not multiplayer.is_server():
+		return
+	if not random_manager and get_player(selected_manager_id) == null:
+		random_manager = true
+		selected_manager_id = 0
+	sync_role_settings.rpc(random_manager, selected_manager_id)
+
+
+func choose_manager() -> int:
+	if not multiplayer.is_server() or players.is_empty():
+		return 0
+	if not random_manager:
+		return selected_manager_id if get_player(selected_manager_id) != null else 0
+	var candidates: Array[int] = []
+	for player: Statics.PlayerData in players:
+		if player.id > 0:
+			candidates.append(player.id)
+	return candidates.pick_random() if not candidates.is_empty() else 0
+
+
+func apply_match_roles(manager_id: int) -> bool:
+	if get_player(manager_id) == null or manager_id <= 0:
+		return false
+	for player: Statics.PlayerData in players:
+		player.role = Statics.Role.MANAGER if player.id == manager_id else Statics.Role.EMPLOYEE
+	return true
 
 
 @rpc("any_peer", "reliable", "call_local")

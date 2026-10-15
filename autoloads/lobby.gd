@@ -126,5 +126,7 @@ func reset() -> void:
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	Game.instance.players = []
+	Game.instance.random_manager = true
+	Game.instance.selected_manager_id = 0
 	Debug.reset_window_title()
 	Game.instance.update_player_id()
