@@ -8,22 +8,19 @@ const PORT: int = 5409 # Number between 1024 and 65535.
 
 enum Role {
 	NONE,
-	ROLE_A,
-	ROLE_B,
-	ROLE_C,
+	EMPLOYEE,
+	MANAGER,
 }
 
 
 static func get_role_name(role: Role) -> String:
 	match role:
 		Role.NONE:
-			return "None"
-		Role.ROLE_A:
-			return "Role A"
-		Role.ROLE_B:
-			return "Role B"
-		Role.ROLE_C:
-			return "Role C"
+			return "Sin asignar"
+		Role.EMPLOYEE:
+			return "Empleado/a"
+		Role.MANAGER:
+			return "Jefatura"
 	return "Unknown"
 
 
@@ -42,7 +39,7 @@ class PlayerData:
 		role = new_role
 	
 	func _to_string() -> String:
-		return "Player: {id: %d, name: %s, index: %d, role: %d}" % [id, name, index, Statics.get_role_name(role)]
+		return "Player: {id: %d, name: %s, index: %d, role: %s}" % [id, name, index, Statics.get_role_name(role)]
 	
 	func to_dict() -> Dictionary:
 		return {
