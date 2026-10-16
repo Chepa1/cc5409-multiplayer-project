@@ -26,7 +26,7 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 [node name="Head" type="Node3D" parent="." unique_id=323422308]
 
 [node name="Nose" type="MeshInstance3D" parent="Head" unique_id=2070919644]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00009429455, 0.34589844, -0.45105808)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.429455e-05, 0.34589845, -0.4510581)
 mesh = SubResource("BoxMesh_u5bk5")
 skeleton = NodePath("../..")
 
@@ -43,10 +43,10 @@ text = "Sushipleto"
 [node name="SyncTimer" type="Timer" parent="." unique_id=1758544219]
 wait_time = 0.1
 
-[node name="RoleHUD" type="CanvasLayer" parent="."]
+[node name="RoleHUD" type="CanvasLayer" parent="." unique_id=908472602]
 visible = false
 
-[node name="RoleLabel" type="Label" parent="RoleHUD"]
+[node name="RoleLabel" type="Label" parent="RoleHUD" unique_id=2044555046]
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 16.0
@@ -54,7 +54,6 @@ offset_top = 16.0
 offset_right = -16.0
 offset_bottom = 60.0
 grow_horizontal = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
 theme_override_constants/outline_size = 6
@@ -62,6 +61,6 @@ theme_override_font_sizes/font_size = 28
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="RoleNoticeTimer" type="Timer" parent="."]
+[node name="RoleNoticeTimer" type="Timer" parent="." unique_id=1450938628]
 wait_time = 12.0
 one_shot = true
