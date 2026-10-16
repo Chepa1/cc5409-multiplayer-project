@@ -4,13 +4,14 @@ class_name Player
 signal player_captured
 
 const MANAGER_GUN_SCENE: PackedScene = preload(
-	"res://player/manager_gun.tscn"
+	"res://scenes/gun.tscn"
 )
 
 var rol: Statics.Role = Statics.Role.NONE
-var pistola: ManagerGun = null
+var pistola: Node3D = null
 var capturado: bool = false
 var ultimo_disparo_ms: int = -100000
+var ultimo_efecto_ms: int = -100000
 
 @export var alcance_pistola: float = 30.0
 @export var tiempo_entre_disparos: float = 0.5
@@ -79,15 +80,10 @@ func _input(event: InputEvent) -> void:
 			buscar_silla()
 
 	if event.is_action_pressed("shoot"):
-		print("CLICK DE DISPARO DETECTADO")
-		print("Rol: ", Statics.get_role_name(rol))
-		print("Pistola existe: ", pistola != null)
-		print("Mouse capturado: ",
-			Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)
-
-		if rol == Statics.Role.MANAGER and pistola != null:
-			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				pistola.disparar()
+		if rol == Statics.Role.MANAGER:
+			if pistola != null:
+				if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+					disparar_manager()
 
 
 func add_sit_point(point: Marker3D) -> void:
@@ -235,10 +231,6 @@ func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id, true)
 	camera_3d.current = is_multiplayer_authority()
 
-	print("Jugador: ", player_data.name)
-	print("Rol: ", Statics.get_role_name(rol))
-	print("Autoridad local: ", is_multiplayer_authority())
-
 	if rol == Statics.Role.MANAGER:
 		configurar_pistola()
 
@@ -330,24 +322,81 @@ func _process(_delta: float) -> void:
 		
 
 func configurar_pistola() -> void:
-	if rol != Statics.Role.MANAGER:
+	if rol != Statics.Role.MANAGER or not is_multiplayer_authority():
 		return
-
-	if not is_multiplayer_authority():
-		return
-
 	if pistola != null:
 		return
 
 	var instancia: Node = MANAGER_GUN_SCENE.instantiate()
-	if not instancia is ManagerGun:
-		push_error("manager_gun.tscn debe tener manager_gun.gd en su nodo raiz")
+	if not instancia is Node3D:
+		push_error("scenes/gun.tscn debe tener un nodo raíz Node3D o derivado")
 		instancia.free()
 		return
-	pistola = instancia as ManagerGun
+
+	pistola = instancia as Node3D
 	camera_3d.add_child(pistola)
-	pistola.position = Vector3.ZERO
-	pistola.configurar(self)
+	pistola.position = Vector3(0.35, -0.25, -0.6)
+	pistola.rotation = Vector3.ZERO
+	print("Pistola visual creada para Jefatura: ", name)
+
+
+func disparar_manager() -> void:
+	if not is_multiplayer_authority():
+		return
+	if rol != Statics.Role.MANAGER or capturado or pistola == null:
+		return
+	var ahora: int = Time.get_ticks_msec()
+	if ahora - ultimo_efecto_ms < int(tiempo_entre_disparos * 1000.0):
+		return
+	ultimo_efecto_ms = ahora
+
+	var origen: Vector3 = camera_3d.global_position
+	var direccion: Vector3 = -camera_3d.global_basis.z
+	var destino: Vector3 = origen + direccion * alcance_pistola
+
+	# Trayectoria visual local, con la primera colisión del escenario.
+	var parametros: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		origen, destino, 0xFFFFFFFF, [get_rid()]
+	)
+	var choque: Dictionary = get_world_3d().direct_space_state.intersect_ray(parametros)
+	if not choque.is_empty():
+		destino = choque["position"]
+
+	# La autoridad distribuye la bala visual a todos los peers.
+	mostrar_proyectil.rpc(origen, destino)
+	# El servidor resuelve el impacto de forma independiente.
+	pedir_disparo(origen, direccion)
+
+
+@rpc("authority", "call_local", "reliable")
+func mostrar_proyectil(origen: Vector3, destino: Vector3) -> void:
+	if not origen.is_finite() or not destino.is_finite():
+		return
+
+	var mundo: Node = get_tree().current_scene
+	if mundo == null:
+		return
+	var bala: MeshInstance3D = MeshInstance3D.new()
+	var esfera: SphereMesh = SphereMesh.new()
+	esfera.radius = 0.085
+	esfera.height = 0.17
+	bala.mesh = esfera
+
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.albedo_color = Color(1.0, 0.7, 0.1)
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.emission_enabled = true
+	material.emission = Color(1.0, 0.6, 0.0)
+	material.emission_energy_multiplier = 3.0
+	bala.material_override = material
+
+	mundo.add_child(bala)
+	bala.global_position = origen
+	var distancia: float = origen.distance_to(destino)
+	var duracion: float = maxf(distancia / 35.0, 0.01)
+	var animacion: Tween = bala.create_tween()
+	animacion.tween_property(bala, "global_position", destino, duracion)
+	animacion.tween_callback(bala.queue_free)
 
 
 func pedir_disparo(origen: Vector3, direccion: Vector3) -> void:
@@ -359,7 +408,6 @@ func pedir_disparo(origen: Vector3, direccion: Vector3) -> void:
 
 	if multiplayer.is_server():
 		validar_disparo(origen, direccion)
-		print("Servidor recibió disparo de: ", name)
 	else:
 		solicitar_disparo.rpc_id(1, origen, direccion)
 
@@ -414,9 +462,7 @@ func validar_disparo(
 	var impacto: Dictionary = get_world_3d().direct_space_state.intersect_ray(
 		consulta
 	)
-	if not impacto.is_empty():
-		print("Disparo impactó a: ", impacto["collider"])
-		
+
 	if impacto.is_empty():
 		print("Disparo sin impacto")
 		return
