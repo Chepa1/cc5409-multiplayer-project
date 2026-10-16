@@ -11,6 +11,9 @@ signal sit_state_changed
 @export var sit_visual_offset: float = 0.45
 @export var sit_head_offset: float = 0.45
 @export var stand_offset: float = 1.2
+@onready var role_notice_timer: Timer = $RoleNoticeTimer
+@onready var role_hud: CanvasLayer = $RoleHUD
+@onready var role_label: Label = $RoleHUD/RoleLabel
 @onready var head: Node3D = $Head
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var label_3d: Label3D = $Label3D
@@ -35,6 +38,7 @@ var label_position_original: Vector3
 
 func _ready() -> void:
 	sync_timer.timeout.connect(on_sync_timeout)
+	role_notice_timer.timeout.connect(role_hud.hide)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	mesh_scale_original = mesh.scale
 	mesh_position_original = mesh.position
@@ -195,6 +199,16 @@ func setup(player_data: Statics.PlayerData) -> void:
 	label_3d.text = player_data.name
 	set_multiplayer_authority(player_data.id, true)
 	camera_3d.current = is_multiplayer_authority()
+	role_label.text = ""
+	match player_data.role:
+		Statics.Role.EMPLOYEE:
+			role_label.text = "Eres un empleado!"
+		Statics.Role.MANAGER:
+			role_label.text = "Eres la jefatura!"
+	role_notice_timer.stop()
+	role_hud.visible = is_multiplayer_authority() and Game.instance.use_roles and not role_label.text.is_empty()
+	if role_hud.visible:
+		role_notice_timer.start()
 	if is_multiplayer_authority():
 		sync_timer.start()
 

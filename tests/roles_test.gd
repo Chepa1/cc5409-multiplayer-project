@@ -63,5 +63,43 @@ func _run() -> void:
 	waiting.free()
 	game.players.clear()
 	check(game.choose_manager() == 0, "Empty lobby has no manager")
+	await _check_role_hud()
 	print("Role tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func _check_role_hud() -> void:
+	var player_scene: PackedScene = load("res://player/player.tscn")
+	var local_player: Player = player_scene.instantiate()
+	var remote_player: Player = player_scene.instantiate()
+	add_child(local_player)
+	add_child(remote_player)
+	check(not local_player.role_hud.visible, "HUD stays hidden until player setup")
+	var local_data: Statics.PlayerData = Statics.PlayerData.new(multiplayer.get_unique_id(), "Local", 0, Statics.Role.EMPLOYEE)
+	local_player.setup(local_data)
+	check(local_player.role_hud.visible, "Local player sees their HUD")
+	check(local_player.role_label.text == "Eres un empleado!", "Employee message is shown")
+	local_data.role = Statics.Role.MANAGER
+	local_player.setup(local_data)
+	check(local_player.role_label.text == "Eres la jefatura!", "Manager message is shown")
+	remote_player.setup(Statics.PlayerData.new(99, "Remote", 1, Statics.Role.MANAGER))
+	check(not remote_player.role_hud.visible, "Remote players never show a HUD")
+	Game.instance.use_roles = false
+	local_player.setup(local_data)
+	check(not local_player.role_hud.visible, "Disabled roles hide the HUD")
+	Game.instance.use_roles = true
+	local_data.role = Statics.Role.NONE
+	local_player.setup(local_data)
+	check(not local_player.role_hud.visible, "Unassigned players do not show a misleading role")
+	local_data.role = Statics.Role.EMPLOYEE
+	local_player.setup(local_data)
+	check(local_player.role_notice_timer.wait_time == 12.0, "Role notice lasts 12 seconds")
+	# Exercise the real timeout quickly, without running movement or network sync.
+	local_player.set_physics_process(false)
+	remote_player.set_physics_process(false)
+	local_player.sync_timer.stop()
+	local_player.role_notice_timer.start(0.05)
+	await get_tree().create_timer(0.15).timeout
+	check(not local_player.role_hud.visible, "Role notice hides automatically after timeout")
+	check(local_player.role_notice_timer.is_stopped(), "Role notice does not repeat")
+	local_player.free()
+	remote_player.free()
