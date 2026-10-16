@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://ck543832pt75q"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_57qmd"]
+height = 3.5020752
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_g4v7s"]
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_g4v7s"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_yf5fn"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_g4v7s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g4v7s"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_yf5fn"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_57qmd"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_g4v7s"]
+
+[node name="Gun" type="Node3D" unique_id=772690351]
+
+[node name="Model" type="Node3D" parent="." unique_id=920842978]
+
+[node name="Area3D" type="Area3D" parent="Model" unique_id=386052193]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/Area3D" unique_id=836733973]
+transform = Transform3D(0.19999999, 0, 0, 0, -0.006043314, 0.19990866, 0, -0.19990866, -0.006043314, 0, -0.026293533, -0.15018773)
+shape = SubResource("CapsuleShape3D_57qmd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" unique_id=1505842893]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Model" unique_id=391046575]
+transform = Transform3D(0.16667724, 0, 0, 0, 0.20462728, 0, 0, 0, 0.3926633, -0.0014739148, 0.006850548, -0.26364195)
+mesh = SubResource("PrismMesh_g4v7s")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Model" unique_id=1572109092]
+transform = Transform3D(0.1214966, 0, 0, 0, 0.1943704, 0, 0, 0, 0.14902467, 0.0010852218, -0.12749924, -0.00044796616)
+mesh = SubResource("TubeTrailMesh_g4v7s")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Model" unique_id=1013791679]
+transform = Transform3D(0.11361566, 0, 0, 0, 0.12934819, 0, 0, 0, 0.42793107, -0.00038446486, 0, -0.2717894)
+mesh = SubResource("PrismMesh_yf5fn")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Model" unique_id=671939711]
+transform = Transform3D(0.00029775477, 0.06588191, 0, -0.03554238, 0.0005519241, 0, 0, 0, 0.0644535, 0.0068000555, -0.120574385, -0.08052601)
+mesh = SubResource("TorusMesh_g4v7s")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Model" unique_id=1946080882]
+transform = Transform3D(0.16560104, 0, 0, 0, 0.10403035, 0, 0, 0, 0.17364416, 0, 0.03623025, 0.0045953095)
+mesh = SubResource("CapsuleMesh_g4v7s")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Model" unique_id=16510603]
+transform = Transform3D(0.10491687, 0, 0, 0, 0.32379118, 0, 0, 0, 0.18679148, 0, 0, 0)
+mesh = SubResource("TorusMesh_yf5fn")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Model" unique_id=968144711]
+transform = Transform3D(-0.38030958, -0.0059669926, 0, 0.011391431, -0.19921154, 0, 0, 0, 0.04764975, 0, -0.019168407, 0.0056246743)
+mesh = SubResource("PrismMesh_57qmd")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Model" unique_id=1451241060]
+transform = Transform3D(0.04006965, 0, 0, 0, 0.044829737, 0, 0, 0, 0.032086298, 0.074267596, -0.000995934, -0.121101074)
+mesh = SubResource("SphereMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Model" unique_id=260585878]
+transform = Transform3D(0.031264406, 0, 0, 0, 0.037355997, 0, 0, 0, 0.02963384, -0.075626515, 0.0017181672, -0.12498676)
+mesh = SubResource("SphereMesh_g4v7s")
