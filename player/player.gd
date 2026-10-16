@@ -1,6 +1,20 @@
 extends CharacterBody3D
 class_name Player
 
+signal player_captured
+
+const MANAGER_GUN_SCENE: PackedScene = preload(
+	"res://player/manager_gun.tscn"
+)
+
+var rol: Statics.Role = Statics.Role.NONE
+var pistola: ManagerGun = null
+var capturado: bool = false
+var ultimo_disparo_ms: int = -100000
+
+@export var alcance_pistola: float = 30.0
+@export var tiempo_entre_disparos: float = 0.5
+
 signal sit_state_changed
 
 @export var move_speed: float = 5
@@ -47,14 +61,34 @@ func _ready() -> void:
 	head_position_original = head.position
 	label_position_original = label_3d.position
 
+
 func _input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+
+	if capturado:
+		return
+
 	if event.is_action_pressed("test"):
 		test.rpc()
-	if event.is_action_pressed("sit") and is_multiplayer_authority():
+
+	if event.is_action_pressed("sit"):
 		if sentado:
 			intentar_levantarse()
 		else:
 			buscar_silla()
+
+	if event.is_action_pressed("shoot"):
+		print("CLICK DE DISPARO DETECTADO")
+		print("Rol: ", Statics.get_role_name(rol))
+		print("Pistola existe: ", pistola != null)
+		print("Mouse capturado: ",
+			Input.mouse_mode == Input.MOUSE_MODE_CAPTURED)
+
+		if rol == Statics.Role.MANAGER and pistola != null:
+			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+				pistola.disparar()
+
 
 func add_sit_point(point: Marker3D) -> void:
 	if not available_sit_points.has(point):
@@ -175,11 +209,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		@warning_ignore("unsafe_property_access")
-		head.rotate_y(-event.relative.x * mouse_sensitivity)
-		camera_3d.rotate_x(
-			-event.relative.y * mouse_sensitivity
-		)
+		var mouse_event: InputEventMouseMotion = event as InputEventMouseMotion
+		head.rotate_y(-mouse_event.relative.x * mouse_sensitivity)
+		camera_3d.rotate_x(-mouse_event.relative.y * mouse_sensitivity)
 		camera_3d.rotation.x = clamp(
 			camera_3d.rotation.x,
 			deg_to_rad(-80),
@@ -195,29 +227,35 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return
 
+
 func setup(player_data: Statics.PlayerData) -> void:
 	label_3d.text = player_data.name
+	rol = player_data.role
+
 	set_multiplayer_authority(player_data.id, true)
 	camera_3d.current = is_multiplayer_authority()
-	role_label.text = ""
-	match player_data.role:
-		Statics.Role.EMPLOYEE:
-			role_label.text = "Eres un empleado!"
-		Statics.Role.MANAGER:
-			role_label.text = "Eres la jefatura!"
-	role_notice_timer.stop()
-	role_hud.visible = is_multiplayer_authority() and Game.instance.use_roles and not role_label.text.is_empty()
-	if role_hud.visible:
-		role_notice_timer.start()
+
+	print("Jugador: ", player_data.name)
+	print("Rol: ", Statics.get_role_name(rol))
+	print("Autoridad local: ", is_multiplayer_authority())
+
+	if rol == Statics.Role.MANAGER:
+		configurar_pistola()
+
 	if is_multiplayer_authority():
 		sync_timer.start()
+
 
 @rpc("authority", "call_local", "unreliable_ordered")
 func test() -> void:
 	Debug.log("meh")
 
 func _physics_process(delta: float) -> void:
-
+	
+	if capturado:
+		velocity = Vector3.ZERO
+		return
+		
 	if sentado:
 		velocity = Vector3.ZERO
 		return
@@ -264,6 +302,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func on_sync_timeout() -> void:
+	if capturado:
+		return
+		
 	_sync.rpc(
 		global_position,
 		velocity
@@ -271,6 +312,8 @@ func on_sync_timeout() -> void:
 
 @rpc("authority", "call_remote", "reliable")
 func _sync(pos: Vector3, vel: Vector3) -> void:
+	if capturado:
+		return
 	global_position = global_position.lerp(
 		pos,
 		0.5
@@ -284,3 +327,126 @@ func _sync(pos: Vector3, vel: Vector3) -> void:
 func _process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		head.rotation.y = input_synchronizer.head_rotation
+		
+
+func configurar_pistola() -> void:
+	if rol != Statics.Role.MANAGER:
+		return
+
+	if not is_multiplayer_authority():
+		return
+
+	if pistola != null:
+		return
+
+	var instancia: Node = MANAGER_GUN_SCENE.instantiate()
+	if not instancia is ManagerGun:
+		push_error("manager_gun.tscn debe tener manager_gun.gd en su nodo raiz")
+		instancia.free()
+		return
+	pistola = instancia as ManagerGun
+	camera_3d.add_child(pistola)
+	pistola.position = Vector3.ZERO
+	pistola.configurar(self)
+
+
+func pedir_disparo(origen: Vector3, direccion: Vector3) -> void:
+	if not is_multiplayer_authority():
+		return
+
+	if rol != Statics.Role.MANAGER:
+		return
+
+	if multiplayer.is_server():
+		validar_disparo(origen, direccion)
+		print("Servidor recibió disparo de: ", name)
+	else:
+		solicitar_disparo.rpc_id(1, origen, direccion)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func solicitar_disparo(
+	origen: Vector3,
+	direccion: Vector3
+) -> void:
+	if not multiplayer.is_server():
+		return
+
+	if multiplayer.get_remote_sender_id() != get_multiplayer_authority():
+		return
+
+	validar_disparo(origen, direccion)
+
+
+func validar_disparo(
+	origen: Vector3,
+	direccion: Vector3
+) -> void:
+	if not multiplayer.is_server():
+		return
+
+	if rol != Statics.Role.MANAGER or capturado:
+		return
+
+	var ahora: int = Time.get_ticks_msec()
+
+	if ahora - ultimo_disparo_ms < int(tiempo_entre_disparos * 1000.0):
+		return
+
+	if not origen.is_finite() or not direccion.is_finite():
+		return
+
+	if direccion.length_squared() < 0.9:
+		return
+
+	if origen.distance_to(head.global_position) > 2.0:
+		return
+
+	ultimo_disparo_ms = ahora
+
+	var consulta: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
+		origen,
+		origen + direccion.normalized() * alcance_pistola,
+		0xFFFFFFFF,
+		[get_rid()]
+	)
+
+	var impacto: Dictionary = get_world_3d().direct_space_state.intersect_ray(
+		consulta
+	)
+	if not impacto.is_empty():
+		print("Disparo impactó a: ", impacto["collider"])
+		
+	if impacto.is_empty():
+		print("Disparo sin impacto")
+		return
+
+	var objetivo: Object = impacto["collider"]
+
+	if objetivo is Player:
+		var empleado: Player = objetivo as Player
+
+		if empleado.rol == Statics.Role.EMPLOYEE:
+			if not empleado.capturado:
+				empleado.marcar_capturado.rpc()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func marcar_capturado() -> void:
+	# El servidor es quien autoriza las capturas.
+	if multiplayer.is_server():
+		if multiplayer.get_remote_sender_id() != 0:
+			return
+	else:
+		if multiplayer.get_remote_sender_id() != 1:
+			return
+
+	if capturado:
+		return
+
+	capturado = true
+	velocity = Vector3.ZERO
+
+	player_captured.emit()
+
+	print("Empleado capturado: ", name)

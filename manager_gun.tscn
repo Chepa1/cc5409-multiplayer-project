@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ciukn0mhakgv6"]
+
+[ext_resource type="Script" uid="uid://cu0anlu5mffkj" path="res://manager_gun.gd" id="1_l22a4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+size = Vector3(0.18, 0.15, 0.45)
+
+[node name="ManagerGun" type="Node3D" unique_id=287852963]
+script = ExtResource("1_l22a4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=935251060]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, -0.25, 0)
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="GunRayCast" type="RayCast3D" parent="." unique_id=883939514]
+target_position = Vector3(0, 0, -30)
