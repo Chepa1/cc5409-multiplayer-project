@@ -7,6 +7,4 @@ func _ready() -> void:
 	back_button.pressed.connect(_on_back_button_pressed)
 
 func _on_back_button_pressed() -> void:
-	multiplayer.multiplayer_peer = null 
-	
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	Lobby.instance.go_to_menu()
