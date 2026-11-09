@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b1lkygs7401cn" path="res://assets/textures/marcel-strauss-E7DsoC0mcpw-unsplash.jpg" id="7_8ywr3"]
 [ext_resource type="PackedScene" uid="uid://y1slqr3r2vt3" path="res://assets/models/Briefcase.fbx" id="7_ja80a"]
 [ext_resource type="PackedScene" uid="uid://bd4l6pmr2pcjm" path="res://assets/models/Can_Energy.fbx" id="8_alkg7"]
-[ext_resource type="PackedScene" path="res://scenes/Chair.tscn" id="9_3hjlj"]
+[ext_resource type="PackedScene" uid="uid://dpdxv14spamro" path="res://scenes/Chair.tscn" id="9_3hjlj"]
 [ext_resource type="PackedScene" uid="uid://ddqhqmity5loi" path="res://assets/models/PaperStack.fbx" id="10_qg43x"]
 [ext_resource type="Texture2D" uid="uid://bhkuh1n44dnbo" path="res://assets/textures/wood/wood_0057_preview.jpg" id="11_t1nwb"]
 [ext_resource type="PackedScene" uid="uid://b2xs5qt8posdu" path="res://assets/models/PlantPotLargeC.fbx" id="12_t1nwb"]
@@ -29,7 +29,6 @@
 [ext_resource type="Texture2D" uid="uid://dtrxoihuctx57" path="res://assets/textures/ceiling_tiles/tiles_0013_ao_1k.jpg" id="20_ja80a"]
 [ext_resource type="PackedScene" uid="uid://d7eskset001" path="res://scenes/DeskSet.tscn" id="21_deskset"]
 [ext_resource type="PackedScene" uid="uid://dadvuanfkyy5r" path="res://assets/models/Light_StandingLight_A.fbx" id="22_floor_lamp"]
-
 [ext_resource type="PackedScene" uid="uid://b5xipdxlg7ext" path="res://scenes/shovel_palette.tscn" id="30_shovel_palette"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07d2k"]
@@ -106,15 +105,6 @@ albedo_texture = ExtResource("7_8ywr3")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fw3ux"]
 albedo_texture = ExtResource("5_ja80a")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
-size = Vector3(0.61642456, 0.696167, 2.2254639)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3gngh"]
-size = Vector3(1.8255615, 0.7474365, 0.6170349)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_57qmd"]
-size = Vector3(1, 1.0708618, 0.6900635)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_floor_lamp"]
 size = Vector3(0.45, 1, 0.45)
@@ -997,5 +987,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.29781, 2.9880912, 6.216541)
 
 [node name="Players" type="Node3D" parent="." unique_id=1257853971]
 
-[node name="ShovelPalette" parent="." instance=ExtResource("30_shovel_palette")]
+[node name="ShovelPalette" parent="." unique_id=1866656196 instance=ExtResource("30_shovel_palette")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.294284, 0.05882716, 7.3056498)
+
+[node name="ShovelRespawnPoints" type="Node3D" parent="." unique_id=1195784033]
+
+[node name="Point1" type="Marker3D" parent="ShovelRespawnPoints" unique_id=699259506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.007056, 0, 7.221216)
+
+[node name="Point2" type="Marker3D" parent="ShovelRespawnPoints" unique_id=1593034120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.98462, 0, -11.191517)
+
+[node name="Timer" type="Timer" parent="ShovelRespawnPoints" unique_id=1076434595]
+wait_time = 15.0
+autostart = true
